@@ -3,21 +3,31 @@
 /**
  * Module dependencies.
  */
-var _ = require('lodash'),
-	errorHandler = require('../errors.server.controller'),
-	mongoose = require('mongoose'),
-	passport = require('passport'),
-	User = mongoose.model('User'),
-	config = require('../../../config/config'),
-	nodemailer = require('nodemailer'),
-	async = require('async'),
-	crypto = require('crypto');
+ var _ = require('lodash'),
+ errorHandler = require('../errors.server.controller'),
+ mongoose = require('mongoose'),
+ passport = require('passport'),
+ User = mongoose.model('User'),
+ config = require('../../../config/config'),
+ nodemailer = require('nodemailer'),
+ async = require('async'),
+ crypto = require('crypto');
+
+
+ var nodeMailer = require('nodemailer');
+ var transporter = nodeMailer.createTransport({
+ 	service: 'Gmail',
+ 	auth: {
+ 		user: 'testangular2015@gmail.com',
+ 		pass: 'tester12345'
+ 	}
+ });
 
 /**
  * Forgot for reset password (forgot POST)
  */
-exports.forgot = function(req, res, next) {
-	async.waterfall([
+ exports.forgot = function(req, res, next) {
+ 	async.waterfall([
 		// Generate random token
 		function(done) {
 			crypto.randomBytes(20, function(err, buffer) {
@@ -72,43 +82,41 @@ exports.forgot = function(req, res, next) {
 				subject: 'Password Reset',
 				html: emailHTML
 			};
-			smtpTransport.sendMail(mailOptions, function(err) {
-				if (!err) {
-					res.send({
-						message: 'An email has been sent to ' + user.email + ' with further instructions.'
-					});
-				}
+				transporter.sendMail(mailOptions, function(error, info){
+						if(error){
+							return console.log(error);
+						}
+						console.log('Message sent: ' + info.response);
 
-				done(err);
-			});
+					});
 		}
-	], function(err) {
-		if (err) return next(err);
-	});
+		], function(err) {
+			if (err) return next(err);
+		});
 };
 
 /**
  * Reset password GET from email token
  */
-exports.validateResetToken = function(req, res) {
-	User.findOne({
-		resetPasswordToken: req.params.token,
-		resetPasswordExpires: {
-			$gt: Date.now()
-		}
-	}, function(err, user) {
-		if (!user) {
-			return res.redirect('/#!/password/reset/invalid');
-		}
+ exports.validateResetToken = function(req, res) {
+ 	User.findOne({
+ 		resetPasswordToken: req.params.token,
+ 		resetPasswordExpires: {
+ 			$gt: Date.now()
+ 		}
+ 	}, function(err, user) {
+ 		if (!user) {
+ 			return res.redirect('/#!/password/reset/invalid');
+ 		}
 
-		res.redirect('/#!/password/reset/' + req.params.token);
-	});
-};
+ 		res.redirect('/#!/password/reset/' + req.params.token);
+ 	});
+ };
 
 /**
  * Reset password POST from email token
  */
-exports.reset = function(req, res, next) {
+ exports.reset = function(req, res, next) {
 	// Init Variables
 	var passwordDetails = req.body;
 
@@ -156,15 +164,15 @@ exports.reset = function(req, res, next) {
 					});
 				}
 			});
-		},
-		function(user, done) {
-			res.render('templates/reset-password-confirm-email', {
-				name: user.displayName,
-				appName: config.app.title
-			}, function(err, emailHTML) {
-				done(err, emailHTML, user);
-			});
-		},
+},
+function(user, done) {
+	res.render('templates/reset-password-confirm-email', {
+		name: user.displayName,
+		appName: config.app.title
+	}, function(err, emailHTML) {
+		done(err, emailHTML, user);
+	});
+},
 		// If valid email, send reset email using service
 		function(emailHTML, user, done) {
 			var smtpTransport = nodemailer.createTransport(config.mailer.options);
@@ -179,15 +187,15 @@ exports.reset = function(req, res, next) {
 				done(err, 'done');
 			});
 		}
-	], function(err) {
-		if (err) return next(err);
-	});
+		], function(err) {
+			if (err) return next(err);
+		});
 };
 
 /**
  * Change Password
  */
-exports.changePassword = function(req, res) {
+ exports.changePassword = function(req, res) {
 	// Init Variables
 	var passwordDetails = req.body;
 
