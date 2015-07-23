@@ -1,4 +1,4 @@
-<section data-ng-controller="ArticlesController">
+<!-- <section data-ng-controller="ArticlesController">
 	<div class="page-header">
 		<h1>New Article</h1>
 	</div>
@@ -26,4 +26,123 @@
 			</fieldset>
 		</form>
 	</div>
+</section> -->
+<section data-ng-controller="ArticlesController" data-ng-init="find()">
+	<div class="page-header">
+		<h1>Results</h1>
+	</div>
+	<!-- Main picture -->
+<div class="container">
+	<div class= "col-md-6 mainPic">
+		<img width="500" height="300" src="http://cdn-img2.streeteasy.com/nyc/image/78/174504278.jpg">
+	</div>
+	<!-- Listing Address -->
+	<div class="col-md-6 listingAddress text-center">
+		<h3>Chelsea Condo</h3>
+		<p>At</p>
+		<h3>422 West 20th Street #3G</h3>
+	<!-- Bed, bath, sqfootage -->
+	<br />
+		<ul style="list-style-type:none;">
+			<li>Bed: 2</li>
+			<hr style="height:1px;border:none;color:#333;background-color:#333;">
+			<li>Bath: 1</li>
+			<hr style="height:1px;border:none;color:#333;background-color:#333;">
+			<li>Sq Ft: 950</li>
+			<hr style="height:1px;border:none;color:#333;background-color:#333;">
+		</ul>
+	</div>
+
+<!-- Contact agent buton modal -->
+	<div ng-controller="ModalDemoCtrl">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" style = "overflow-y: initial !important"> Contact Agent</h3>
+        </div>
+        <div class="modal-body" style="height: 250px; overflow-y: auto;">
+        <input type="text" placeholder="I'm interested in this property" width="100%" style="height: 200px; width: 700px;">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+	<!-- Contact button -->
+	<div class="col-md-offset-6 col-md-6 text-center form-group contactButton">
+		<button ng-click="open('lg')" class="btn btn-primary">Contact Agent</button>
+	</div>
+
+<script type="text/javascript">"public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js"</script>
+
+<!-- Accordian  -->
+<div class="col-md-6" ng-controller="AccordionDemoCtrl">
+  <!-- <p>
+    <button class="btn btn-default btn-sm" ng-click="status.open = !status.open">Toggle last panel</button>
+    <button class="btn btn-default btn-sm" ng-click="status.isFirstDisabled = ! status.isFirstDisabled">Enable / Disable first panel</button>
+  </p> -->
+
+  <!-- <label class="checkbox">
+    <input type="checkbox" ng-model="oneAtATime">
+    Open only one at a time
+  </label> -->
+  <accordion close-others="oneAtATime">
+    <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+    <accordion-heading>
+	Description <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isFirstOpen, 'glyphicon-chevron-right': !status.isFirstDisabled}"></i>
+    </accordion-heading>
+      Sun flooded two-bedroom, one-bathroom residence in Chelsea's fabulous condominium from The Brodsky Organization. With access to the Close, the gated private enclave of the General Theological Seminary located across the street, and interiors by noted architect Alan Wanzenberg, this home features a spacious south-facing living room, a newly installed kitchen and windowed bathroom with state-of-the-art finishes, as well as graceful details such as solid oak plank flooring and Shaker-style doors and cabinetry that complement the classic aesthetic of the original 19th-century faade. The apartment is also one of only three configurations with its own Bosch washer and dryer. The apartment can be sold fully furnished. 
+    </accordion-group>
+    <accordion-group is-open="status.isSecondOpen" is-disabled="status.isSecondDisabled"> 
+    	<accordion-heading>
+    	Amenities <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isSecondOpen, 'glyphicon-chevron-right': !status.isSecondDisabled}"></i>
+    	</accordion-heading>
+    		<ul>
+      		<li>Bike Room</li>
+      		<li>Doorman</li>
+      		<li>Elevator</li>
+      		<li>Laundry in Building
+</li>
+      		<li>Pets Allowed
+</li>
+      		<li>Virtual Doorman
+</li>
+      		</ul>
+    </accordion-group>
+<!--     <accordion-group heading="Building Info">
+      <p>The body of the accordion group grows to fit the contents</p>
+        <button class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
+        <div ng-repeat="item in items">{{item}}</div>
+    </accordion-group> -->
+    <accordion-group is-open="status.open">
+        <accordion-heading>
+            Building Details <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        </accordion-heading>
+        This is just some content to illustrate fancy headings.
+    </accordion-group>
+  </accordion>
+</div>
+
+<!-- Map picture -->
+<div class="mapPic col-md-offset-1 col-md-4">
+	<img src="http://i.imgur.com/7pK3vxW.png">
+</div>
+
+</div>
+
+
+	<!-- <div class="list-group">
+		<a data-ng-repeat="article in articles" data-ng-href="#!/articles/{{article._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="article.created | date:'mediumDate'"></span>
+				by
+				<span data-ng-bind="article.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="article.title"></h4>
+			<p class="list-group-item-text" data-ng-bind="article.content"></p>
+		</a>
+	</div>
+	<div class="alert alert-warning text-center" data-ng-if="articles.$resolved && !articles.length">
+		No articles yet, why don't you <a href="/#!/articles/create">create one</a>?
+	</div> -->
 </section>

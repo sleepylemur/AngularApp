@@ -1,5 +1,75 @@
-<section data-ng-controller="ArticlesController" data-ng-init="findOne()">
-<div>
-	<p>I'm a modal</p>
+<section data-ng-controller="ArticlesController" data-ng-init="find()">
+	<div class="page-header">
+		<h1>Results</h1>
+	</div>
+	<!-- Main picture -->
+	<div class= "mainPic">
+		<img src="">
+	</div>
+	<!-- Listing Address -->
+	<div class="listingAddress">
+		<h3></h3>
+		<p></p>
+		<h3></h3>
+	</div>
+	<!-- Bed, bath, sqfootage -->
+	<div>
+		<ul>
+			<li></li>
+		</ul>
+	</div>
+
+<!-- Contact agent buton modal -->
+	<div class="contactButton">
+		<button class="btn btn-primary">Contact Agent</button>
+	</div>
+
+<!-- Accordian  -->
+<div ng-controller="AccordionDemoCtrl">
+  <p>
+    <button class="btn btn-default btn-sm" ng-click="status.open = !status.open">Toggle last panel</button>
+    <button class="btn btn-default btn-sm" ng-click="status.isFirstDisabled = ! status.isFirstDisabled">Enable / Disable first panel</button>
+  </p>
+
+  <label class="checkbox">
+    <input type="checkbox" ng-model="oneAtATime">
+    Open only one at a time
+  </label>
+  <accordion close-others="oneAtATime">
+    <accordion-group heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+      This content is straight in the template.
+    </accordion-group>
+    <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+      {{group.content}}
+    </accordion-group>
+    <accordion-group heading="Dynamic Body Content">
+      <p>The body of the accordion group grows to fit the contents</p>
+        <button class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
+        <div ng-repeat="item in items">{{item}}</div>
+    </accordion-group>
+    <accordion-group is-open="status.open">
+        <accordion-heading>
+            I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        </accordion-heading>
+        This is just some content to illustrate fancy headings.
+    </accordion-group>
+  </accordion>
 </div>
+
+
+	<div class="list-group">
+		<a data-ng-repeat="article in articles" data-ng-href="#!/articles/{{article._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="article.created | date:'mediumDate'"></span>
+				by
+				<span data-ng-bind="article.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="article.title"></h4>
+			<p class="list-group-item-text" data-ng-bind="article.content"></p>
+		</a>
+	</div>
+	<div class="alert alert-warning text-center" data-ng-if="articles.$resolved && !articles.length">
+		No articles yet, why don't you <a href="/#!/articles/create">create one</a>?
+	</div>
 </section>
