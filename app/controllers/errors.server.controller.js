@@ -1,4 +1,4 @@
-'use strict';
+a'use strict';
 
 /**
  * Get unique error field name
