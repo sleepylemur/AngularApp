@@ -9,6 +9,10 @@
 				<span data-ng-bind="article.created | date:'mediumDate'"></span>
 				by
 				<span data-ng-bind="article.user.displayName"></span>
+				<span data-ng-bind="article.address"></span>
+				<span data-ng-bind="article.details.num_bedrooms"></span>
+				<span data-ng-bind="article.apartment_features.photos.media[0].media_url"></span>
+
 			</small>
 			<h4 class="list-group-item-heading" data-ng-bind="article.title"></h4>
 			<p class="list-group-item-text" data-ng-bind="article.content"></p>
