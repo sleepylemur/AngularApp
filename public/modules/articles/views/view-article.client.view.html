@@ -10,13 +10,193 @@
 			<i class="glyphicon glyphicon-trash"></i>
 		</a>
 	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="article.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="article.user.displayName"></span>
-		</em>
-	</small>
-	<p class="lead" data-ng-bind="article.content"></p>
+	<!-- Main picture -->
+<div class="container">
+	<div class= "col-md-6 mainPic">
+		<img width="500" height="300" ng-src="{{article.apartment_features.photos.media[0].media_url}}">
+	</div>
+	<!-- Listing Address -->
+	<div class="col-md-6 listingAddress text-center">
+		<h3 data-ng-bind="article.neighborhood + ' ' + article.ownership"  id="neighborhood"></h3>
+		<p>At</p>
+		<h3 data-ng-bind="article.address" id="address"></h3>
+	<!-- Bed, bath, sqfootage -->
+	<br />
+		<ul style="list-style-type:none;">
+			<li>Bed: <span data-ng-bind="article.details.num_bedrooms"></span> </li>
+			<hr style="height:1px;border:none;color:#333;background-color:#333;">
+			<li>Bath: <span data-ng-bind="article.details.num_baths"></span> </li>
+			<hr style="height:1px;border:none;color:#333;background-color:#333;">
+			<li>Sq Ft: <span data-ng-bind="article.details.approx_square_footage"></span> </li>
+			<hr style="height:1px;border:none;color:#333;background-color:#333;">
+		</ul>
+	</div>
+
+<!-- Contact agent buton modal -->
+	<div ng-controller="ModalDemoCtrl">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" style = "overflow-y: initial !important"> Contact Agent</h3>
+        </div>
+        <div class="modal-body" style="height: 250px; overflow-y: auto;">
+        <input type="text" placeholder="I'm interested in this property" width="100%" style="height: 200px; width: 700px;">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+	<!-- Contact button -->
+	<div class="col-md-offset-6 col-md-6 text-center form-group contactButton">
+		<button ng-click="open('lg')" class="btn btn-primary">Contact Agent</button>
+	</div>
+
+<script type="text/javascript">"public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js"</script>
+
+<!-- Accordian  -->
+<div class="col-md-6" ng-controller="AccordionDemoCtrl">
+  <!-- <p>
+    <button class="btn btn-default btn-sm" ng-click="status.open = !status.open">Toggle last panel</button>
+    <button class="btn btn-default btn-sm" ng-click="status.isFirstDisabled = ! status.isFirstDisabled">Enable / Disable first panel</button>
+  </p> -->
+
+  <!-- <label class="checkbox">
+    <input type="checkbox" ng-model="oneAtATime">
+    Open only one at a time
+  </label> -->
+  <accordion close-others="oneAtATime">
+    <accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+    <accordion-heading>
+	Description <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isFirstOpen, 'glyphicon-chevron-right': !status.isFirstDisabled}"></i>
+    </accordion-heading>
+      Sun flooded two-bedroom, one-bathroom residence in Chelsea's fabulous condominium from The Brodsky Organization. With access to the Close, the gated private enclave of the General Theological Seminary located across the street, and interiors by noted architect Alan Wanzenberg, this home features a spacious south-facing living room, a newly installed kitchen and windowed bathroom with state-of-the-art finishes, as well as graceful details such as solid oak plank flooring and Shaker-style doors and cabinetry that complement the classic aesthetic of the original 19th-century faade. The apartment is also one of only three configurations with its own Bosch washer and dryer. The apartment can be sold fully furnished. 
+
+      This listing courtesy of <span data-ng-bind="article.apartment_features.agent.company_name"></span>
+    </accordion-group>
+    <accordion-group is-open="status.isSecondOpen" is-disabled="status.isSecondDisabled"> 
+    	<accordion-heading>
+    	Amenities <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isSecondOpen, 'glyphicon-chevron-right': !status.isSecondDisabled}"></i>
+    	</accordion-heading>
+    		<ul>
+      		<li>Bike Room</li>
+      		<li>Doorman</li>
+      		<li>Elevator</li>
+      		<li>Laundry in Building
+</li>
+      		<li>Pets Allowed
+</li>
+      		<li>Virtual Doorman
+</li>
+      		</ul>
+    </accordion-group>
+<!--     <accordion-group heading="Building Info">
+      <p>The body of the accordion group grows to fit the contents</p>
+        <button class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
+        <div ng-repeat="item in items">{{item}}</div>
+    </accordion-group> -->
+    <accordion-group is-open="status.open">
+        <accordion-heading>
+            Building Details <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        </accordion-heading>
+        This is just some content to illustrate fancy headings.
+    </accordion-group>
+  </accordion>
+</div>
+
+<!-- Map picture -->
+<div class="mapPic col-md-offset-1 col-md-4">
+	<div id="map-canvas">
+			<map zoom="11" center="[40.7903, -73.9597]">
+			<shape id="fin-dist" name="Financial District" 
+			path="[[40.7029037, -74.0173751], [40.7015273, -74.0160331],
+[40.7008504, -74.0151847],
+[40.700977900000005, -74.0150278],
+[40.700610600000005, -74.0142305],
+[40.700077199999996, -74.0143469],
+[40.700087, -74.0142119],
+[40.7007264, -74.0140372],
+[40.7009973, -74.0139283],
+[40.7009537, -74.0136271],
+[40.7004358, -74.01359450000001],
+[40.70008740000001, -74.0137392],
+[40.700067700000005, -74.0135862],
+[40.7003019, -74.0134668],
+[40.7004922, -74.0134715],
+[40.700473499999994, -74.0132807],
+[40.6997809, -74.0131317],
+[40.699804, -74.0129934],
+[40.7004696, -74.0130774],
+[40.700477, -74.012937],
+[40.70008210000001, -74.0126415],
+[40.7001043, -74.0124938],
+[40.70058710000001, -74.0125486],
+[40.7005846, -74.0123829],
+[40.70002199999999, -74.0120426],
+[40.7000743, -74.01186170000001],
+[40.7006616, -74.0112885],
+[40.70080070000001, -74.0113344],
+[40.70088659999999, -74.0110463],
+[40.701069999999994, -74.01108],
+[40.70108100000001, -74.0112191],
+[40.701222, -74.011251],
+[40.701273699999994, -74.0111111],
+[40.70140520000001, -74.0111485],
+[40.7017807, -74.0095765],
+[40.7005241, -74.0086191],
+[40.7006603, -74.008355],
+[40.7008911, -74.0085126],
+[40.7013237, -74.0075936],
+[40.70154, -74.0077349],
+[40.70112760000001, -74.0087175],
+[40.701889300000005, -74.009241],
+[40.702863900000004, -74.0076252],
+[40.7030422, -74.0075897],
+[40.7035379, -74.0067673],
+[40.70242749999999, -74.0055085],
+[40.7025636, -74.0053082],
+[40.7027049, -74.00544410000002],
+[40.7027186, -74.0050078],
+[40.702847399999996, -74.0050472],
+[40.7028305, -74.0056247],
+[40.7036436, -74.0065358],
+[40.7039281, -74.006133],
+[40.703867, -74.005996],
+[40.70511340000001, -74.0040607],
+[40.7040693, -74.0028676],
+[40.7042141, -74.0026037],
+[40.7052788, -74.0038236],
+[40.7056079, -74.0032963],
+[40.7045442, -74.0021314],
+[40.7047119, -74.0019244],
+[40.705121, -74.0023681],
+[40.7054232, -74.0026973],
+[40.7055174, -74.0025507],
+[40.7053205, -74.0020912],
+[40.70478690000001, -74.0014108],
+[40.7054025, -74.000502],
+[40.7061658, -74.0013672],
+[40.7064173, -74.0009737],
+[40.7068196, -74.0013885],
+[40.7069232, -74.0012311],
+[40.7068367, -74.0011631],
+[40.7072977, -74.0001957],
+[40.707840000000004, -73.9994],
+[40.712134000000006, -74.005197],
+[40.711532, -74.007965],
+[40.7120545, -74.0082154],
+[40.714379, -74.013442],
+[40.7137189, -74.0137119],
+[40.71028, -74.0146819],
+[40.705107000000005, -74.016613],
+[40.705107000000005, -74.017128],
+[40.70398000000001, -74.01768],
+[40.7035395, -74.0177153],
+[40.7029037, -74.0173751]]" 
+stroke-color="#FF0000" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF0000" fill-opacity="0.35" ></shape>
+
+		</map>
+		</div>
+</div>
+
+</div>
 </section>
