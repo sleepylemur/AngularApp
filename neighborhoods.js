@@ -9,19 +9,23 @@ var finale = []
 
 for (i=0; i<boroughedNeighborhoods.length; i++){
 
-	var arrayed = []
+	// var arrayed = []
 
-	var j=0
-	while(j<boroughedNeighborhoods[i].coords.length){
+   finale.push('"' +boroughedNeighborhoods[i].name +'"')
 
-		arrayed.push("[" + boroughedNeighborhoods[i].coords[j].lat + "," + boroughedNeighborhoods[i].coords[j].lng + "]")
-		j++
-	}
 
-	var template = '<shape id="' + boroughedNeighborhoods[i].name +  '" name="polyline" path= \"[' +  arrayed + ' ] \" stroke-color="#FF0000" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF0000" fill-opacity="0.35" ></shape>'
+	// var j=0
+	// while(j<boroughedNeighborhoods[i].coords.length){
 
-	finale.push(template)
+	// 	arrayed.push(boroughedNeighborhoods[i].name)
+
+	// 	j++
+	// }
+
+	// var template = '<shape id="' + boroughedNeighborhoods[i].name +  '" name="polyline" path= \"[' +  arrayed + ' ] \" stroke-color="#FF0000" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF0000" fill-opacity="0.35" ></shape>'
+
+	// finale.push(template)
 
 }
 
-fs.writeFileSync('./latlng.html', finale.join(","))
+fs.writeFileSync('./latlng.html', finale)
