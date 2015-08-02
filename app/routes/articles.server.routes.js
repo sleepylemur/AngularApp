@@ -4,7 +4,8 @@
  * Module dependencies.
  */
 var users = require('../../app/controllers/users.server.controller'),
-	articles = require('../../app/controllers/articles.server.controller');
+	articles = require('../../app/controllers/articles.server.controller'),
+	neighborhoods = require('../../app/controllers/neighborhood.server.controller');
 
 module.exports = function(app) {
 	// Article Routes
@@ -16,6 +17,9 @@ module.exports = function(app) {
 		.get(articles.read)
 		.put(users.requiresLogin, articles.hasAuthorization, articles.update)
 		.delete(users.requiresLogin, articles.hasAuthorization, articles.delete);
+
+	app.route('/neighborhoods')
+		.get(neighborhoods.list);
 
 	// Finish by binding the article middleware
 	app.param('articleId', articles.articleByID);

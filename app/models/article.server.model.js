@@ -131,4 +131,10 @@ var ArticleSchema = new Schema({
 	}
 });
 
+var NeighborhoodSchema = new Schema({});
+
+
+
 mongoose.model('Article', ArticleSchema);
+
+mongoose.model('Neighborhood', NeighborhoodSchema);
