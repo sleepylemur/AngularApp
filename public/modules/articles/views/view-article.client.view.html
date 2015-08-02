@@ -38,21 +38,22 @@
         <div class="modal-header">
             <h3 class="modal-title" style = "overflow-y: initial !important"> Contact Agent</h3>
         </div>
+        <div ng-controller="contactAgentCtrl">
         <div class="modal-body" style="height: 250px; overflow-y: auto;">
-        <input type="text" placeholder="I'm interested in this property" width="100%" style="height: 200px; width: 700px;">
+        <input type="text" data-ng-model="contactAgentInput" placeholder="I'm interested in this property" width="100%" style="height: 200px; width: 700px;">
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-primary" ng-click="sendMail()">OK</button>
             <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
         </div>
     </script>
 	<!-- Contact button -->
 	<div class="col-md-offset-6 col-md-6 text-center form-group contactButton">
 		<button ng-click="open('lg')" class="btn btn-primary">Contact Agent</button>
 	</div>
-
 <script type="text/javascript">"public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js"</script>
-
+  </div>
 <!-- Accordian  -->
 <div class="col-md-6" ng-controller="AccordionDemoCtrl">
   <!-- <p>

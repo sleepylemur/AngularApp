@@ -55,7 +55,7 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
 			});
 		};
 	}
-]);
+  ]);
 
 
 // Modals
@@ -95,16 +95,32 @@ angular.module('articles').controller('ModalDemoCtrl', function ($scope, $modal,
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-angular.module('articles').controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+angular.module('articles').controller('ModalInstanceCtrl', function ($scope, $modalInstance, items, $http) {
 
   $scope.items = items;
   $scope.selected = {
     item: $scope.items[0]
   };
 
-  $scope.ok = function () {
+  $scope.sendMail = function(){
+
+    var data = ({
+      input : this.contactAgentInput
+    })
+
+    $http.post('/contact-agent', data).
+    then(function(response) {
+    // this callback will be called asynchronously
     $modalInstance.close($scope.selected.item);
-  };
+
+    console.log("all is well")
+    // when the response is available
+  }, function(response) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+  })
+  }
+
 
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
@@ -117,10 +133,10 @@ angular.module('articles').controller('AccordionDemoCtrl', function ($scope) {
   $scope.oneAtATime = false;
 
   $scope.groups = [
-    {
-      title: 'Dynamic Group Header - 1',
-      content: 'Dynamic Group Body - 1'
-    },
+  {
+    title: 'Dynamic Group Header - 1',
+    content: 'Dynamic Group Body - 1'
+  },
   ];
 
   $scope.items = ['Item 1', 'Item 2', 'Item 3'];
@@ -135,3 +151,46 @@ angular.module('articles').controller('AccordionDemoCtrl', function ($scope) {
     isFirstDisabled: false
   };
 });
+
+angular.module('articles').controller('contactAgentCtrl', ['$scope', '$http',
+  function($scope, $http){
+    $scope.toastPosition = {
+      bottom: false,
+      top: true,
+      left:false,
+      right:true
+    };
+    $scope.getToastPosition = function(){
+      return Object.keys($scope.toastPosition)
+      .filter(function(pos){
+        return $scope.toastPosition(pos);
+      })
+    }
+    this.sendMail = function(){
+
+      data = ({
+        input : this.contactAgentInput
+      })
+
+      $http.post('/contact-agent', data.
+        then(function(response) {
+    // this callback will be called asynchronously
+    $mdtoast.show(
+      $mdtoast.simple()
+      .content("Thanks for sending this over. your message is" + data.contactAgentForm)
+      .position($scope.getToastPosition())
+      .hideDelay(5000)
+      )
+
+    console.log("all is well")
+    // when the response is available
+  }, function(response) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+  })
+        )
+
+
+    }
+  }
+  ]);
