@@ -1,0 +1,353 @@
+<style type="text/css">
+		fieldset.scheduler-border {
+			border: 1px groove #ddd !important;
+			padding: 0 1.4em 1.4em 1.4em !important;
+			margin: 0 0 1.5em 0 !important;
+			-webkit-box-shadow:  0px 0px 0px 0px #000;
+			box-shadow:  0px 0px 0px 0px #000;
+		}
+
+		legend.scheduler-border {
+			font-size: 1.2em !important;
+			font-weight: bold !important;
+			text-align: left !important;
+			width:auto;
+			padding:0 10px;
+			border-bottom:none;
+		}
+		#to{
+			padding-left: 15px;
+		}
+		a {
+			font-family: playfair display light;
+		}
+		button {
+			font-family: playfair display light;
+		}
+		label {
+			font-family: Source Sans Pro;
+		}
+		#checkbox {
+			font-family: Source Sans Pro;
+		}
+		.styled-select {
+			width: 180px;
+			height: 34px;
+			overflow: hidden;
+			background: url(http://cdn.bavotasan.com/wp-content/uploads/2011/05/down_arrow_select.jpg) no-repeat right #fff;
+			border: 1px solid #ccc;
+		}
+		#mdprice1 {
+			display: block;
+/*margin: 0 auto;
+*/}
+#mdprice2 {
+	display: block;
+/*margin: 0 auto;
+*/}
+
+.styled-select select {
+	background: transparent;
+	width: 268px;
+	padding: 5px;
+	font-size: 16px;
+	line-height: 1;
+	border: 0;
+	border-radius: 0;
+	height: 34px;
+	-webkit-appearance: none;
+}
+.styled-select input {
+	background: transparent;
+	width: 268px;
+	padding: 5px;
+	font-size: 16px;
+	line-height: 1;
+	border: 0;
+	border-radius: 0;
+	height: 34px;
+	-webkit-appearance: none;
+}
+
+</style>
+<title>Rentals</title>
+</header>
+<!-- Either insert navbar here, or create a seperate view and add as a partial -->
+<body>
+<!-- Bootstrap container -->
+	<div class="container">
+	<!-- Fieldset is the lines that go around the form -->
+		<fieldset class="scheduler-border">
+			<!-- The two top buttons of Sales and rentals -->
+			<legend class="scheduler-border">
+				<a class="btn btn-default active" href="#" role="button">Rentals</a><a class="btn btn-default " href="/sales" role="button">Sales</a>
+			</legend>
+			<div class="control-group">
+				<div class="row">
+					<div class="col-md-6 col-xs-6">
+						<label class="control-label input-label" >Location</label>
+					</div>
+					<div class="col-md-3 col-xs-6">
+						<!-- <label class="control-label input-label" >Building </label> -->
+					</div>
+					<!-- Start of form -->
+					<form action = "/search/results" method="GET">
+						<div class="col-md-6 col-xs-6">
+							<div class="styled-select" >
+
+								<!-- <input type="text" id="location" name="location" placeholder="" /> -->
+
+								<!-- Location drop down -->
+								<select id="location" name="location">
+									<option value="" disabled="">Brooklyn Neighborhoods:</option>
+									<option value="Fort Greene">Fort Greene</option>
+									<option value="Williamsburg">Williamsburg</option>
+									<option value="Park Slope">Park Slope</option>
+									<option value="Gowanus">Gowanus</option>
+									<option value="Carroll Gardens">Carroll Gardens</option>
+									<option value="Old Mill Basin ">Old Mill Basin </option>
+									<option value="Sunset Park">Sunset Park </option>
+									<option value="Bay Ridge">Bay Ridge</option>
+									<option value="Dyker Heights">Dyker Heights</option>
+									<option value="Flatlands">Flatlands</option>
+									<option value="Park Slope">Park Slope</option>
+									<option value="Coney Island">Coney Island</option>
+									<option value="Cobble Hill">Cobble Hill</option>
+									<option value="Crown Heights ">Crown Heights </option>
+									<option value="Dumbo">Dumbo</option>
+									<option value="Flatbush">Park Slope</option>
+									<option value="Bedford Stuyvesant">Bedford Stuyvesant</option>
+									<option value="Bushwick">Bushwick</option>
+									<option value="Fort Hamilton">Fort Hamilton</option>
+									<option value="Midwood">Midwood</option>
+									<option value="Fort Greene">Fort Greene</option>
+									<option value="Sheepshead Bay">Sheepshead Bay</option>
+									<option value="Brighton Beach">Brighton Beach/option>
+									<option value="Clinton Hill">Clinton Hill</option>
+									<option value="Bensonhurst">Bensonhurst</option>
+									<option value="Prospect Heights">Prospect Heights</option>
+									<option value="Greenpoint">Greenpoint</option>
+									<option value="Gravesend">Gravesend/option>
+									<option value="Borough Park">Borough Park</option>
+									<option value="Sunset Park">Sunset Park</option>
+									<option value="Bay Ridge">Bay Ridge</option>
+									<option value="" disabled="">Manhattan Neighborhoods:</option>
+									<option value="Chinatown">Chinatown</option>
+									<option value="Chelsea">Chelsea</option>
+									<option value="Lower East Side">Lower East Side</option>
+									<option value="Lower West Side">Lower West Side</option>
+									<option value="Upper West Side">Upper West Side</option>
+									<option value="Upper East Side">Upper East Side</option>
+									<option value="Little Italy">Little Italy</option>
+									<option value="Flatiron District">Flatiron District</option>
+									<option value="Financial District">Financial District</option>
+									<option value="Gramercy Park">Gramercy Park</option>
+									<option value="Midtown West">Midtown West</option>
+									<option value="Soho">Soho</option>
+									<option value="Central Park West">Central Park West</option>
+									<option value="Midtown East">Midtown East</option>
+									<option value="Greenwich Village">Greenwich Village</option>
+									<option value="E. Greenwich Village">E. Greenwich Village</option>
+									<option value="Washington Heights">Washington Heights</option>
+									<option value="Hudson Heights">Hudson Heights</option>
+									<option value="Battery Park City">Battery Park City</option>
+									<option value="Tribeca">Tribeca</option>
+									<option value="Kips Bay">Kips Bay</option>
+									<option value="Murray Hill">Murray Hill</option>
+									<option value="Morningside Heights">Morningside Heights</option>
+									<option value="Carnegie Hill">Carnegie Hill</option>
+									<option value="Noho">Noho</option>
+									<option value="Clinton">Clinton</option>
+									<option value="Harlem">Harlem</option>
+									<option value="W. Greenwich Village">W. Greenwich Village</option>
+									<option value="Hamilton Heights">Hamilton Heights</option>
+									<option value="Mt. Morris Park">Mt. Morris Park</option>
+									<option value="Sutton Place">Sutton Place</option>
+									<option value="Roosevelt Island">Roosevelt Island</option>
+									<option value="Tudor City">W. Tudor City</option>
+									<option value="Beekman Place">Beekman Place</option>
+									<option value="Inwood">Inwood</option>
+									<option value="" disabled="">Queens Neighborhoods:</option>
+									<option value="Forest Hills">Forest Hills</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br/>
+				<div class="row">
+					<div class="col-md-3 col-xs-6">
+						<label class="control-label input-label">Price</label>
+					</div>
+					<div class="col-md-3 col-xs-6">
+						<label class="control-label input-label">Price</label>
+					</div>
+
+					<!-- responsive mobile price drop down -->
+				<!-- <div class="col-xs-6 hidden-md hidden-lg">
+					<label>$</label>
+						<select id="price1" name="price1">
+							<option value="100000">100,000</option>
+							<option value="200000">200,000</option>
+							<option value="300000">300,000</option>
+							<option value="400000">400,000</option>
+							<option value="500000">500,000</option>
+							<option value="600000">600,000</option>
+							<option value="700000">700,000</option>
+							<option value="800000">800,000</option>
+							<option value="900000">900,000</option>
+							<option value="1000000">1,000,000</option>
+						</select>
+					<label id="to">To</label>
+				</div>
+				<div class="col-xs-6 hidden-md hidden-lg">
+					<label>$</label>
+						<select id="price2" name="price2">
+							<option value="100000">100,000</option>
+							<option value="200000">200,000</option>
+							<option value="300000">300,000</option>
+							<option value="400000">400,000</option>
+							<option value="500000">500,000</option>
+							<option value="600000">600,000</option>
+							<option value="700000">700,000</option>
+							<option value="800000">800,000</option>
+							<option value="900000">900,000</option>
+							<option value="1000000">1,000,000</option>						</select>
+						<select id="favcity" name="select">
+							<option value="1">300</option>
+							<option value="2">400</option>
+						</select>
+					<label id="to">To</label>
+				</div> -->
+				<!-- <div class="col-xs-6 hidden-md hidden-lg">
+					<label>$
+						<select id="favcity" name="select">
+							<option value="1">300,000</option>
+							<option value="2">400,000</option>
+						</select>
+					</label>
+				</div> -->
+
+				<div class="col-md-3 col-xs-6">
+					<label class="control-label input-label">Bedrooms</label>
+				</div>
+				<div class="col-md-3 col-xs-6">
+					<label class="control-label input-label">Bathrooms</label>
+				</div>
+			</div>
+
+			<!-- Begining Price Dropdown -->
+			<div class="row">
+				<div class="col-md-2 hidden-sm hidden-xs">
+					<div class="styled-select" >
+
+						<!-- <label>$</label> -->
+						<select class="styled-select" id="mdPrice1" name="price1">
+							<option value="500">$500</option>
+							<option value="750">$750</option>
+							<option value="1000">$1000</option>
+							<option value="1250">$1250</option>
+							<option value="1500">$1500</option>
+							<option value="1750">$1750</option>
+							<option value="2000">$2000</option>
+							<option value="2500">$2500</option>
+							<option value="3000">$3000</option>
+							<option value="3500">$3500</option>
+							<option value="4000">$4000</option>
+							<option value="4500">$4500</option>
+							<option value="5000">$5000</option>
+							<option value="6000">$6000</option>
+							<option value="7000">$7000</option>
+							<option value="8000">$8000</option>
+							<option value="9000">$9000</option>
+							<option value="10000">$10000</option>
+							<option value="12500">$12500</option>
+							<option value="15000">$15000</option>
+						</select>
+					</div>
+					<!-- <label id="to">To</label> -->
+				</div>
+
+				<div class="col-md-offset-1 col-md-2 hidden-sm hidden-xs">
+				<!-- Ending price drop down -->
+					<div class="styled-select" >
+						<select  id="mdPrice2" name="price2">
+							<option value="500">$500</option>
+							<option value="750">$750</option>
+							<option value="1000">$1000</option>
+							<option value="1250">$1250</option>
+							<option value="1500">$1500</option>
+							<option value="1750">$1750</option>
+							<option value="2000">$2000</option>
+							<option value="2500">$2500</option>
+							<option value="3000">$3000</option>
+							<option value="3500">$3500</option>
+							<option value="4000">$4000</option>
+							<option value="4500">$4500</option>
+							<option value="5000">$5000</option>
+							<option value="6000">$6000</option>
+							<option value="7000">$7000</option>
+							<option value="8000">$8000</option>
+							<option value="9000">$9000</option>
+							<option value="10000">$10000</option>
+							<option value="12500">$12500</option>
+							<option value="15000">$15000</option>
+						</select>
+					</div>
+				</div>
+
+				<!-- Bed number drop down -->
+				<div class="col-md-offset-1 col-md-3 col-xs-6">
+					<div class="styled-select" >
+						<select name="bedNum" type="number">
+							<option value="0">0</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+						</select>
+					</div>
+				</div>
+				<!-- Bath Num drop down -->
+				<div class="col-md-3 col-xs-6">
+					<div class="styled-select" >
+						<select class="styled-select" name="bathNum" type="number">
+							<option value="0">0</option>
+							<option value="1.0">1</option>
+							<option value="1.5">1.5</option>
+							<option value="2.0">2</option>
+							<option value="2.5">2.5</option>
+							<option value="3.0">3</option>
+							<option value="3.5">3.5</option>
+							<option value="4.0">4</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<!-- Or more Checkboxes -->
+				<div class="row">
+					<div id="checkbox" class="col-md-offset-6 col-md-3 col-xs-6">
+						<input name="moreBed" type="checkbox">Or more</input>
+					</div>
+					<div id="checkbox" class="col-md-3 col-xs-6">
+						<input name="moreBath" type="checkbox">Or more</input>
+					</div>
+				</div>
+				<!-- Search button -->
+				<div class="row">
+					<div class=" col-md-3">
+						<br/>
+						<button id="searchbuton" style="background-color: #2a2a2a;
+						color: #fff !important;">Search</button>
+					</div>
+				</form>
+			</div>
+		</fieldset>
+	</div>
+</div>

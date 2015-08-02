@@ -1,72 +1,63 @@
+<style type="text/css">
+	hr{
+		margin: 0;
+	}
+	.mapContainer{
+		
+	}
+</style>
 <section data-ng-controller="ArticlesController" data-ng-init="find()">
 	<div class="page-header">
-		<h1>Articles</h1>
+		<h1>Results</h1>
 	</div>
-	<div class="container col-md-9">
-		<a data-ng-repeat="article in articles" data-ng-href="#!/articles/{{article._id}}" class="list-group-item">
-			<!-- <small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="article.created | date:'mediumDate'"></span>
-				by
-				<span data-ng-bind="article.user.displayName"></span>
-				<span data-ng-bind="article.address"></span>
-				<span data-ng-bind="article.details.num_bedrooms"></span>
-				<span data-ng-bind="article.apartment_features.photos.media[0].media_url">Bedrooms</span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="article.title"></h4>
-			<p class="list-group-item-text" data-ng-bind="article.content"></p>
-			<label data-ng-bind="article.details.num_bedrooms" id="sqfoot"> ft²</label>
-			<img ng-src="{{article.apartment_features.photos.media[0].media_url}}" style="height:100px;max-width:140px;" >
-		</a>
-	</div>
-	<div class="alert alert-warning text-center" data-ng-if="articles.$resolved && !articles.length">
-		No articles yet, why don't you <a href="/#!/articles/create">create one</a>?
-	</div> -->
-
-	<!-- Traditional start -->
-	<div class=" list-group" id="listing" >
-		<div class="row">
-			<div class="col-md-3">
-				<img ng-src="{{article.apartment_features.photos.media[0].media_url}}" style="height:100px;max-width:140px;" >
-			</div>
-			<div class="col-md-9">
+	<div data-ng-repeat="article in articles" class="container col-md-9">
+		
+		<!-- Traditional start -->
+		<!-- <div class=" list-group"  > -->
+		<a id="listing" data-ng-href="#!/articles/{{article._id}}" class="list-group-item">
+			<div class="row">
+				<div class="col-md-3">
+					<img ng-src="{{article.apartment_features.photos.media[0].media_url}}" style="height:100px;max-width:140px;" >
+				</div>
+				<div class="col-md-9">
+					<div class="row">
+						<div class="col-md-6">
+							<label data-ng-bind="article.address" id="address" > </label>
+							<span>| APT</span>
+							<label data-ng-bind="article.apt_number" id="address" ></label>
+							<span data-ng-bind="article.sale_terms.price | currency" id="price"></span>
+							<hr >
+						</div>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-md-6">
-						<label data-ng-bind="article.address" id="address" > </label>
-						<span>| APT</span>
-						<label data-ng-bind="article.apt_number" id="address" ></label>
-						<label data-ng-bind="article.neighborhood" id="address" > </label>
+						<span>Bed: </span>
+						<span data-ng-bind="article.details.num_bedrooms" id="bedNumber"></span>
+						<span>| Bath: </span>
+						<span data-ng-bind="article.details.num_baths" id="bathNumber"></span>
+						<span>| </span>
+						<span data-ng-bind="article.details.approx_square_footage" id="sqfoot"></span>
+						<span>ft²</span>
 						<hr />
+					</div>
+					<div class="col-md-6">
+						<label data-ng-bind="article.ownership + ' in ' + article.neighborhood" id="neighborhood" > </label>
+					<hr >
+					</div>
+					<br><br>
+					<div class=" col-md-6">
+						<span id="lister">Contact your Remax agent for more info</span>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-3">
-					<label data-ng-bind="article.sale_terms.price | currency" id="price"></label>
-				</div>
-				<div class="col-md-3">
-					<span>Bed: </span>
-					<label data-ng-bind="article.details.num_bedrooms" id="bedNumber"><b></label>
-					<span>Bath: </span>
-					<label data-ng-bind="article.details.num_baths" id="bathNumber"><b></label>
-					<span>ft² </span>
-					<label data-ng-bind="article.details.approx_square_footage" id="sqfoot"></label>
-				</div>
-				<br>
-				<br>
-				<div class=" col-md-3">
-					<lable id="lister">Contact your Remax agent for more info</lable>
-				</div>
-			</div>
-		</div>
-		<hr style="height:1px;border:none;color:#333;background-color:#333;">
+			<hr style="height:1px;border:none;color:#333;background-color:#333;">
+		</a>
 	</div>
-</div>
-</div>
-</a>
-</div>
 </section>
-<div class="container ">
+
+<!-- Start of map portion -->
+<div id="mapContainer" class="container ">
 	<div class="row">
 		<div class="col-md-3">
 			<div class="mapPic">
@@ -261,4 +252,22 @@ stroke-color="#FF0000" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF000
 
 </div> -->
 
-</section>
+<!-- Old list article html -->
+<!-- <small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="article.created | date:'mediumDate'"></span>
+				by
+				<span data-ng-bind="article.user.displayName"></span>
+				<span data-ng-bind="article.address"></span>
+				<span data-ng-bind="article.details.num_bedrooms"></span>
+				<span data-ng-bind="article.apartment_features.photos.media[0].media_url">Bedrooms</span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="article.title"></h4>
+			<p class="list-group-item-text" data-ng-bind="article.content"></p>
+			<label data-ng-bind="article.details.num_bedrooms" id="sqfoot"> ft²</label>
+			<img ng-src="{{article.apartment_features.photos.media[0].media_url}}" style="height:100px;max-width:140px;" >
+		</a>
+		</div>
+		<div class="alert alert-warning text-center" data-ng-if="articles.$resolved && !articles.length">
+		No articles yet, why don't you <a href="/#!/articles/create">create one</a>?
+		</div> -->
