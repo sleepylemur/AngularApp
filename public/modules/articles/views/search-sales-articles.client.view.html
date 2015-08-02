@@ -1,4 +1,7 @@
 <header>
+	<link data-require="chosen@1.0.0" data-semver="1.0.0" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.0/chosen.min.css" />
+    <script data-require="chosen@1.0.0" data-semver="1.0.0" src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.0/chosen.jquery.min.js"></script>
+    <script data-require="chosen@1.0.0" data-semver="1.0.0" src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.0/chosen.proto.min.js"></script>
 	<style type="text/css">
 		fieldset.scheduler-border {
 			border: 1px groove #ddd !important;
@@ -96,6 +99,12 @@
 					<form role="form" data-ng-submit="searchart()">
 						<div class="col-md-6 col-xs-6">
 							<div class="styled-select" >
+
+    <div ng-controller="MainCtrl as main">
+      <select data-placeholder="Select States" class="form-control" chosen="main.allStates" ng-model="main.states" multiple="" ng-options="state.name + ' (' + state.abbreviation + ')' for state in main.allStates"></select>  
+      <button ng-click="main.clearSelect()" type="button" class="btn btn-primary">Clear Select</button>
+      <div ng-repeat="state in main.states">- {{state.name}}, {{state.abbreviation}} </div>
+    </div>
 
 								<!-- <input type="text" id="location" name="location" placeholder="" /> -->
 								<select id="location" name="location">

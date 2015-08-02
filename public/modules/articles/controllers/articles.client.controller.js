@@ -57,6 +57,9 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
 	}
   ]);
 
+// Chosen
+
+
 
 // Modals
 angular.module('articles').controller('ModalDemoCtrl', function ($scope, $modal, $log) {
