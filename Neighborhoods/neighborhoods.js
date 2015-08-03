@@ -4,28 +4,29 @@ var fs = require('fs')
 // console.log(boroughedNeighborhoods[0].coords.length)
 
 
-var finale = []
-
-
 for (i=0; i<boroughedNeighborhoods.length; i++){
 
-	// var arrayed = []
+    var finale = []
+// 
+	var arrayed = []
 
-   finale.push('"' +boroughedNeighborhoods[i].name +'"')
+    var coords;
 
 
-	// var j=0
-	// while(j<boroughedNeighborhoods[i].coords.length){
+	var j=0
+	while(j<boroughedNeighborhoods[i].coords.length){
 
-	// 	arrayed.push(boroughedNeighborhoods[i].name)
+		arrayed.push('[' + boroughedNeighborhoods[i].coords[j].lat + ',' + boroughedNeighborhoods[i].coords[j].lng + ']')
 
-	// 	j++
-	// }
+        var coords = '[' + boroughedNeighborhoods[i].coords[j].lat + ',' + boroughedNeighborhoods[i].coords[j].lng + ']'
 
-	// var template = '<shape id="' + boroughedNeighborhoods[i].name +  '" name="polyline" path= \"[' +  arrayed + ' ] \" stroke-color="#FF0000" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF0000" fill-opacity="0.35" ></shape>'
+		j++
+	}
 
-	// finale.push(template)
+	var template = '<shape id="' + boroughedNeighborhoods[i].name +  '" name="polyline" path= \"[' +  arrayed + ' ] \" stroke-color="#FF0000" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF0000" fill-opacity="0.35" ></shape><marker position="' + coords  + '" on-click="showInfoWindow(event, "bar")" dragglele="true" opacity = "0.4" ></marker><info-window id="bar" opacity = "0.4"> <div ng-non-bindable="" opacity = "0.4"><div id="siteNotice" opacity = "0.4"></div><h5 id="firstHeading" class="firstHeading">' + boroughedNeighborhoods[i].name + '</h5><div id="bodyContent opacity" = "0.4"></div></div></info-window>'
+
+	finale.push(template)
+
+    fs.writeFileSync('./' + boroughedNeighborhoods[i].name + '.html', finale)
 
 }
-
-fs.writeFileSync('./latlng.html', finale)
