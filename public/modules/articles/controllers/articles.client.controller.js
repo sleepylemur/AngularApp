@@ -1,8 +1,43 @@
 'use strict';
 
+angular.module('articles').filter('startFrom', function() {
+    return function(input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+});
+
+angular.module('articles').filter("myfilt", function() {
+  return function (input,search) {
+    var out = [], temp=[];
+    if (search && search.neighborhood) {
+      angular.forEach(input,function (e) {
+        if (search.neighborhood.indexOf(e.neighborhood)>=0 ) {
+          temp.push(e);
+        }
+      })      
+    } else {
+      temp = input;
+    }
+    out = temp ;
+    if (search && search.ownership) {
+      out = [];
+      angular.forEach(temp,function (e) {
+        if (search.ownership.indexOf(e.ownership)>=0 ) {
+          out.push(e);
+        }
+      });      
+    }
+  return out;
+  };
+})
+
 angular.module('articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Articles',
 	function($scope, $stateParams, $location, Authentication, Articles) {
 		$scope.authentication = Authentication;
+    $scope.currentPage = 0;
+    $scope.pageSize = 10;
+    $scope.data = [];
 
 		$scope.create = function() {
 			var article = new Articles({
@@ -18,6 +53,14 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
 				$scope.error = errorResponse.data.message;
 			});
 		};
+
+    // pagination 
+    $scope.numberOfPages=function(){
+        return Math.ceil($scope.data.length/$scope.pageSize);                
+    }
+    for (var i=0; i<45; i++) {
+        $scope.data.push("Item "+i);
+    }
 
 		$scope.remove = function(article) {
 			if (article) {

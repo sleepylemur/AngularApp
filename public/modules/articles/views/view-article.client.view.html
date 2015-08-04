@@ -70,7 +70,7 @@
     <accordion-heading>
 	Description <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isFirstOpen, 'glyphicon-chevron-right': !status.isFirstDisabled}"></i>
     </accordion-heading>
-      Sun flooded two-bedroom, one-bathroom residence in Chelsea's fabulous condominium from The Brodsky Organization. With access to the Close, the gated private enclave of the General Theological Seminary located across the street, and interiors by noted architect Alan Wanzenberg, this home features a spacious south-facing living room, a newly installed kitchen and windowed bathroom with state-of-the-art finishes, as well as graceful details such as solid oak plank flooring and Shaker-style doors and cabinetry that complement the classic aesthetic of the original 19th-century faade. The apartment is also one of only three configurations with its own Bosch washer and dryer. The apartment can be sold fully furnished. 
+      <span data-ng-bind="article.details.property_description"></span> 
 
       This listing courtesy of <span data-ng-bind="article.apartment_features.agent.company_name"></span>
     </accordion-group>

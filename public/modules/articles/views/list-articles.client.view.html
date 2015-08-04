@@ -2,49 +2,46 @@
 	hr{
 		margin: 0;
 	}
-	.mapContainer{
-
-	}
 	fieldset.scheduler-border {
-			border: 1px groove #ddd !important;
-			padding: 0 1.4em 1.4em 1.4em !important;
-			margin: 0 0 1.5em 0 !important;
-			-webkit-box-shadow:  0px 0px 0px 0px #000;
-			box-shadow:  0px 0px 0px 0px #000;
-		}
+		border: 1px groove #ddd !important;
+		padding: 0 1.4em 1.4em 1.4em !important;
+		margin: 0 0 1.5em 0 !important;
+		-webkit-box-shadow:  0px 0px 0px 0px #000;
+		box-shadow:  0px 0px 0px 0px #000;
+	}
 
-		legend.scheduler-border {
-			font-size: 1.2em !important;
-			font-weight: bold !important;
-			text-align: left !important;
-			width:auto;
-			padding:0 10px;
-			border-bottom:none;
-		}
-		#to{
-			padding-left: 15px;
-		}
-		a {
-			font-family: playfair display light;
-		}
-		button {
-			font-family: playfair display light;
-		}
-		label {
-			font-family: Source Sans Pro;
-		}
-		#checkbox {
-			font-family: Source Sans Pro;
-		}
-		.styled-select {
-			width: 140px;
-			height: 34px;
-			overflow: hidden;
-			background: url(http://cdn.bavotasan.com/wp-content/uploads/2011/05/down_arrow_select.jpg) no-repeat right #fff;
-			border: 1px solid #ccc;
-		}
-		#mdprice1 {
-			display: block;
+	legend.scheduler-border {
+		font-size: 1.2em !important;
+		font-weight: bold !important;
+		text-align: left !important;
+		width:auto;
+		padding:0 10px;
+		border-bottom:none;
+	}
+	#to{
+		padding-left: 15px;
+	}
+	a {
+		font-family: playfair display light;
+	}
+	button {
+		font-family: playfair display light;
+	}
+	label {
+		font-family: Source Sans Pro;
+	}
+	#checkbox {
+		font-family: Source Sans Pro;
+	}
+	.styled-select {
+		width: 140px;
+		height: 34px;
+		overflow: hidden;
+		background: url(http://cdn.bavotasan.com/wp-content/uploads/2011/05/down_arrow_select.jpg) no-repeat right #fff;
+		border: 1px solid #ccc;
+	}
+	#mdprice1 {
+		display: block;
 /*margin: 0 auto;
 */}
 #mdprice2 {
@@ -52,7 +49,7 @@
 /*margin: 0 auto;
 */}
 
-.styled-select select {
+/*.styled-select select {
 	background: transparent;
 	width: 268px;
 	padding: 5px;
@@ -73,55 +70,49 @@
 	border-radius: 0;
 	height: 34px;
 	-webkit-appearance: none;
-}
-.fixedElement {
-    background-color: #c0c0c0;
-    position:fixed;
-    top:0;
-    width:100%;
-    z-index:100;
-}
+}*/
+
 </style>
 
 <section data-ng-controller="ArticlesController" data-ng-init="find()">
-<script>
-$(window).scroll(function(e){ 
-  $el = $('#mapContainer'); 
-  if ($(this).scrollTop() > 100 && $el.css('position') != 'fixed'){ 
-    $('#mapContainer').css({'position': 'fixed', 'top': '0px'}); 
-  }
-  if ($(this).scrollTop() < 100 && $el.css('position') == 'fixed')
-  {
-    $('#mapContainer').css({'position': 'static', 'top': '0px'}); 
-  } 
-});
-</script>
+	<script>
+		$(window).scroll(function(e){ 
+			$el = $('#mapContainer'); 
+			if ($(this).scrollTop() > 400 && $el.css('position') != 'fixed'){ 
+				$('#mapContainer').css({'position': 'fixed', 'top': '50px'}); 
+			}
+			if ($(this).scrollTop() < 400 && $el.css('position') == 'fixed')
+			{
+				$('#mapContainer').css({'position': 'static', 'top': '0px'}); 
+			} 
+		});
+	</script>
 	<div class="page-header">
 		<h1>Results</h1>
 	</div>
 	<div class="container">
-			<fieldset class="scheduler-border">
-				<legend class="scheduler-border">
-					<a class="btn btn-default " href="/search" role="button">Rentals</a><a class="btn btn-default active" href="#" role="button">Sales</a>
-				</legend>
-				<div class="control-group">
-					<div class="row">
-						<div class="col-md-6 col-xs-6">
-							<label class="control-label input-label" >Location</label>
-						</div>
-						<div class="col-md-3 col-xs-6">
-							<label class="control-label input-label" >Ownership</label>
-						</div>
+		<fieldset class="scheduler-border">
+			<legend class="scheduler-border">
+				<a class="btn btn-default " href="/search" role="button">Rentals</a><a class="btn btn-default active" href="#" role="button">Sales</a>
+			</legend>
+			<div class="control-group">
+				<div class="row">
+					<div class="col-md-6 col-xs-6">
+						<label class="control-label input-label" >Location</label>
+					</div>
+					<div class="col-md-3 col-xs-6">
+						<label class="control-label input-label" >Ownership</label>
+					</div>
 <!-- 					<div class="col-md-3 col-xs-6">
 						<label class="control-label input-label" >Building </label>
 					</div> -->
 					<!-- Start of form -->
 					<form role="form" data-ng-submit="searchart()">
 						<div class="col-md-6 col-xs-6">
-							<div class="styled-select" >
+							<div >
 
 								<!-- <input type="text" id="location" name="location" placeholder="" /> -->
-								<select id="location" name="location" ng-model="search.neighborhood">
+								<select chosen multiple id="location" name="location" ng-model="search.neighborhood">
 									<option value="" disabled="">Brooklyn Neighborhoods:</option>
 									<option value="Fort Greene">Fort Greene</option>
 									<option value="Williamsburg">Williamsburg</option>
@@ -196,8 +187,8 @@ $(window).scroll(function(e){
 									</div>
 								</div>
 								<div class="col-md-6 col-xs-6">
-									<div class="styled-select" >
-										<select class="styled-select" id="ownership" name="ownership" ng-model="search.ownership">
+									<div >
+										<select chosen multiple id="ownership" name="ownership" ng-model="search.ownership">
 											<option value="Condo">Condo</option>
 											<option value="Co-op">Co-op</option>
 										</select>
@@ -268,7 +259,7 @@ $(window).scroll(function(e){
 					<div class="styled-select" >
 
 						<!-- <label>$</label> -->
-						<select ng-model="search.minAmount" class="styled-select" id="mdPrice1" name="price1">
+						<select  class="styled-select" id="mdPrice1" name="price1">
 							<option value="100000">$100,000</option>
 							<option value="150000">$150,000</option>
 							<option value="200000">$200,000</option>
@@ -313,7 +304,7 @@ $(window).scroll(function(e){
 				<div class="col-md-offset-1 col-md-2 hidden-sm hidden-xs">
 					<!-- <label>$</label> -->
 					<div class="styled-select" >
-						<select ng-model="search.maxAmount" id="mdPrice2" name="price2">
+						<select  id="mdPrice2" name="price2">
 							<option value="100000">$100,000</option>
 							<option value="150000">$150,000</option>
 							<option value="200000">$200,000</option>
@@ -407,7 +398,8 @@ $(window).scroll(function(e){
 
 
 <!-- Start of results -->
-	<div data-ng-repeat="article in articles | filter:search " class="container col-md-9">
+<div class="container col-md-9">
+	<div data-ng-repeat="article in articles | myfilt:search | startFrom:currentPage*pageSize | limitTo:pageSize " >
 		
 		<!-- Traditional start -->
 		<!-- <div class=" list-group"  > -->
@@ -421,7 +413,7 @@ $(window).scroll(function(e){
 						<div class="col-md-6">
 							<label data-ng-bind="article.address" id="address" > </label>
 							<span>| APT</span>
-							<label data-ng-bind="article.apt_number" id="address" ></label>
+							<label data-ng-bind="article.apt_number" id="address" ></label><br>
 							<span data-ng-bind="article.sale_terms.price | currency" id="price"></span>
 							<hr >
 						</div>
@@ -440,7 +432,7 @@ $(window).scroll(function(e){
 					</div>
 					<div class="col-md-6">
 						<label data-ng-bind="article.ownership + ' in ' + article.neighborhood" id="neighborhood" > </label>
-					<hr >
+						<hr >
 					</div>
 					<br><br>
 					<div class=" col-md-6">
@@ -451,111 +443,122 @@ $(window).scroll(function(e){
 			<hr style="height:1px;border:none;color:#333;background-color:#333;">
 		</a>
 	</div>
+	<br><br>
+	<!-- Pagination  -->
+	<div class="pagination">
+		<button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+			Previous
+		</button>
+		{{currentPage+1}}/{{numberOfPages()}}
+		<button ng-disabled="currentPage >= data.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+			Next
+		</button>
+	</div>
+</div>
 </section>
 
 <!-- Start of map portion -->
 <div id="mapContainer" class="container col-md-3 " style="position: absolute;
-    left: 73%;">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="mapPic">
-				<div style="float: top;" id="map-canvas">
-					<map zoom="11" center="[40.7903, -73.9597]">
-						<shape id="fin-dist" name="polyline" 
-						path="[[40.7029037, -74.0173751], [40.7015273, -74.0160331],
-						[40.7008504, -74.0151847],
-						[40.700977900000005, -74.0150278],
-						[40.700610600000005, -74.0142305],
-						[40.700077199999996, -74.0143469],
-						[40.700087, -74.0142119],
-						[40.7007264, -74.0140372],
-						[40.7009973, -74.0139283],
-						[40.7009537, -74.0136271],
-						[40.7004358, -74.01359450000001],
-						[40.70008740000001, -74.0137392],
-						[40.700067700000005, -74.0135862],
-						[40.7003019, -74.0134668],
-						[40.7004922, -74.0134715],
-						[40.700473499999994, -74.0132807],
-						[40.6997809, -74.0131317],
-						[40.699804, -74.0129934],
-						[40.7004696, -74.0130774],
-						[40.700477, -74.012937],
-						[40.70008210000001, -74.0126415],
-						[40.7001043, -74.0124938],
-						[40.70058710000001, -74.0125486],
-						[40.7005846, -74.0123829],
-						[40.70002199999999, -74.0120426],
-						[40.7000743, -74.01186170000001],
-						[40.7006616, -74.0112885],
-						[40.70080070000001, -74.0113344],
-						[40.70088659999999, -74.0110463],
-						[40.701069999999994, -74.01108],
-						[40.70108100000001, -74.0112191],
-						[40.701222, -74.011251],
-						[40.701273699999994, -74.0111111],
-						[40.70140520000001, -74.0111485],
-						[40.7017807, -74.0095765],
-						[40.7005241, -74.0086191],
-						[40.7006603, -74.008355],
-						[40.7008911, -74.0085126],
-						[40.7013237, -74.0075936],
-						[40.70154, -74.0077349],
-						[40.70112760000001, -74.0087175],
-						[40.701889300000005, -74.009241],
-						[40.702863900000004, -74.0076252],
-						[40.7030422, -74.0075897],
-						[40.7035379, -74.0067673],
-						[40.70242749999999, -74.0055085],
-						[40.7025636, -74.0053082],
-						[40.7027049, -74.00544410000002],
-						[40.7027186, -74.0050078],
-						[40.702847399999996, -74.0050472],
-						[40.7028305, -74.0056247],
-						[40.7036436, -74.0065358],
-						[40.7039281, -74.006133],
-						[40.703867, -74.005996],
-						[40.70511340000001, -74.0040607],
-						[40.7040693, -74.0028676],
-						[40.7042141, -74.0026037],
-						[40.7052788, -74.0038236],
-						[40.7056079, -74.0032963],
-						[40.7045442, -74.0021314],
-						[40.7047119, -74.0019244],
-						[40.705121, -74.0023681],
-						[40.7054232, -74.0026973],
-						[40.7055174, -74.0025507],
-						[40.7053205, -74.0020912],
-						[40.70478690000001, -74.0014108],
-						[40.7054025, -74.000502],
-						[40.7061658, -74.0013672],
-						[40.7064173, -74.0009737],
-						[40.7068196, -74.0013885],
-						[40.7069232, -74.0012311],
-						[40.7068367, -74.0011631],
-						[40.7072977, -74.0001957],
-						[40.707840000000004, -73.9994],
-						[40.712134000000006, -74.005197],
-						[40.711532, -74.007965],
-						[40.7120545, -74.0082154],
-						[40.714379, -74.013442],
-						[40.7137189, -74.0137119],
-						[40.71028, -74.0146819],
-						[40.705107000000005, -74.016613],
-						[40.705107000000005, -74.017128],
-						[40.70398000000001, -74.01768],
-						[40.7035395, -74.0177153],
-						[40.7029037, -74.0173751]]" 
-						stroke-color="#FF0000" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF0000" fill-opacity="0.35" ></shape>
+left: 73%;">
+<div class="row">
+	<div class="col-md-12">
+		<div class="mapPic">
+			<div style="float: top;" id="map-canvas">
+				<map zoom="11" center="[40.7903, -73.9597]">
+					<shape id="fin-dist" name="polyline" 
+					path="[[40.7029037, -74.0173751], [40.7015273, -74.0160331],
+					[40.7008504, -74.0151847],
+					[40.700977900000005, -74.0150278],
+					[40.700610600000005, -74.0142305],
+					[40.700077199999996, -74.0143469],
+					[40.700087, -74.0142119],
+					[40.7007264, -74.0140372],
+					[40.7009973, -74.0139283],
+					[40.7009537, -74.0136271],
+					[40.7004358, -74.01359450000001],
+					[40.70008740000001, -74.0137392],
+					[40.700067700000005, -74.0135862],
+					[40.7003019, -74.0134668],
+					[40.7004922, -74.0134715],
+					[40.700473499999994, -74.0132807],
+					[40.6997809, -74.0131317],
+					[40.699804, -74.0129934],
+					[40.7004696, -74.0130774],
+					[40.700477, -74.012937],
+					[40.70008210000001, -74.0126415],
+					[40.7001043, -74.0124938],
+					[40.70058710000001, -74.0125486],
+					[40.7005846, -74.0123829],
+					[40.70002199999999, -74.0120426],
+					[40.7000743, -74.01186170000001],
+					[40.7006616, -74.0112885],
+					[40.70080070000001, -74.0113344],
+					[40.70088659999999, -74.0110463],
+					[40.701069999999994, -74.01108],
+					[40.70108100000001, -74.0112191],
+					[40.701222, -74.011251],
+					[40.701273699999994, -74.0111111],
+					[40.70140520000001, -74.0111485],
+					[40.7017807, -74.0095765],
+					[40.7005241, -74.0086191],
+					[40.7006603, -74.008355],
+					[40.7008911, -74.0085126],
+					[40.7013237, -74.0075936],
+					[40.70154, -74.0077349],
+					[40.70112760000001, -74.0087175],
+					[40.701889300000005, -74.009241],
+					[40.702863900000004, -74.0076252],
+					[40.7030422, -74.0075897],
+					[40.7035379, -74.0067673],
+					[40.70242749999999, -74.0055085],
+					[40.7025636, -74.0053082],
+					[40.7027049, -74.00544410000002],
+					[40.7027186, -74.0050078],
+					[40.702847399999996, -74.0050472],
+					[40.7028305, -74.0056247],
+					[40.7036436, -74.0065358],
+					[40.7039281, -74.006133],
+					[40.703867, -74.005996],
+					[40.70511340000001, -74.0040607],
+					[40.7040693, -74.0028676],
+					[40.7042141, -74.0026037],
+					[40.7052788, -74.0038236],
+					[40.7056079, -74.0032963],
+					[40.7045442, -74.0021314],
+					[40.7047119, -74.0019244],
+					[40.705121, -74.0023681],
+					[40.7054232, -74.0026973],
+					[40.7055174, -74.0025507],
+					[40.7053205, -74.0020912],
+					[40.70478690000001, -74.0014108],
+					[40.7054025, -74.000502],
+					[40.7061658, -74.0013672],
+					[40.7064173, -74.0009737],
+					[40.7068196, -74.0013885],
+					[40.7069232, -74.0012311],
+					[40.7068367, -74.0011631],
+					[40.7072977, -74.0001957],
+					[40.707840000000004, -73.9994],
+					[40.712134000000006, -74.005197],
+					[40.711532, -74.007965],
+					[40.7120545, -74.0082154],
+					[40.714379, -74.013442],
+					[40.7137189, -74.0137119],
+					[40.71028, -74.0146819],
+					[40.705107000000005, -74.016613],
+					[40.705107000000005, -74.017128],
+					[40.70398000000001, -74.01768],
+					[40.7035395, -74.0177153],
+					[40.7029037, -74.0173751]]" 
+					stroke-color="#FF0000" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF0000" fill-opacity="0.35" ></shape>
 
-					</map>
-				</div>
+				</map>
 			</div>
 		</div>
-
 	</div>
 
-	<pagination data-boundary-links="true" data-num-pages="noOfPages" data-current-page="currentPage" max-size="maxSize"></pagination>
+</div>
+
 	<!-- <div class="mapPic col-md-3">
 	<div style="float: top;" id="map-canvas">
 			<map zoom="11" center="[40.7903, -73.9597]">
@@ -670,4 +673,4 @@ stroke-color="#FF0000" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF000
 		</div>
 		<div class="alert alert-warning text-center" data-ng-if="articles.$resolved && !articles.length">
 		No articles yet, why don't you <a href="/#!/articles/create">create one</a>?
-		</div> -->
+	</div> -->
