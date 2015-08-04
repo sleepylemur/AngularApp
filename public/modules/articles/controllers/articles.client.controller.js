@@ -52,8 +52,14 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
 		$scope.findOne = function() {
 			$scope.article = Articles.get({
 				articleId: $stateParams.articleId
+        console.log($stateParams)
 			});
 		};
+
+    $scope.getView = function() {
+        var article = $scope.article;
+        return "/views/Neighborhoods" + article.name + ".html";
+    }
 	}
   ]);
 
@@ -154,3 +160,4 @@ angular.module('articles').controller('AccordionDemoCtrl', function ($scope) {
     isFirstDisabled: false
   };
 });
+
