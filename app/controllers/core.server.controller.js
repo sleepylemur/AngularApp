@@ -26,5 +26,5 @@ exports.sendMail = function(req, res) {
         text: data.contactAgentInput
     });
 
-    res.json(data )
+    res.json(data );
 };

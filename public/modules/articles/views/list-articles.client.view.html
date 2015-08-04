@@ -74,8 +74,28 @@
 	height: 34px;
 	-webkit-appearance: none;
 }
+.fixedElement {
+    background-color: #c0c0c0;
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:100;
+}
 </style>
+
 <section data-ng-controller="ArticlesController" data-ng-init="find()">
+<script>
+$(window).scroll(function(e){ 
+  $el = $('#mapContainer'); 
+  if ($(this).scrollTop() > 100 && $el.css('position') != 'fixed'){ 
+    $('#mapContainer').css({'position': 'fixed', 'top': '0px'}); 
+  }
+  if ($(this).scrollTop() < 100 && $el.css('position') == 'fixed')
+  {
+    $('#mapContainer').css({'position': 'static', 'top': '0px'}); 
+  } 
+});
+</script>
 	<div class="page-header">
 		<h1>Results</h1>
 	</div>
@@ -248,7 +268,7 @@
 					<div class="styled-select" >
 
 						<!-- <label>$</label> -->
-						<select class="styled-select" id="mdPrice1" name="price1">
+						<select ng-model="search.minAmount" class="styled-select" id="mdPrice1" name="price1">
 							<option value="100000">$100,000</option>
 							<option value="150000">$150,000</option>
 							<option value="200000">$200,000</option>
@@ -293,7 +313,7 @@
 				<div class="col-md-offset-1 col-md-2 hidden-sm hidden-xs">
 					<!-- <label>$</label> -->
 					<div class="styled-select" >
-						<select  id="mdPrice2" name="price2">
+						<select ng-model="search.maxAmount" id="mdPrice2" name="price2">
 							<option value="100000">$100,000</option>
 							<option value="150000">$150,000</option>
 							<option value="200000">$200,000</option>
@@ -387,7 +407,7 @@
 
 
 <!-- Start of results -->
-	<div data-ng-repeat="article in articles | filter:search" class="container col-md-9">
+	<div data-ng-repeat="article in articles | filter:search " class="container col-md-9">
 		
 		<!-- Traditional start -->
 		<!-- <div class=" list-group"  > -->
@@ -434,9 +454,10 @@
 </section>
 
 <!-- Start of map portion -->
-<div id="mapContainer" class="container ">
+<div id="mapContainer" class="container col-md-3 " style="position: absolute;
+    left: 73%;">
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-12">
 			<div class="mapPic">
 				<div style="float: top;" id="map-canvas">
 					<map zoom="11" center="[40.7903, -73.9597]">
@@ -533,6 +554,8 @@
 		</div>
 
 	</div>
+
+	<pagination data-boundary-links="true" data-num-pages="noOfPages" data-current-page="currentPage" max-size="maxSize"></pagination>
 	<!-- <div class="mapPic col-md-3">
 	<div style="float: top;" id="map-canvas">
 			<map zoom="11" center="[40.7903, -73.9597]">
