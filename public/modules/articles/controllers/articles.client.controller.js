@@ -1,11 +1,27 @@
 'use strict';
 
+angular.module('articles').filter('filterRange', function() {
+   return function(input,min,max) {
+     if (input.$resolved) {
+       if (typeof min === "undefined") min = 0;
+       if (typeof max === "undefined") max = Infinity;
+       return input.filter(function(e) {
+         return e.sale_terms.price >= Number(min) && e.sale_terms.price <= Number(max);
+       });
+     } else {
+       return input;
+     }
+   }
+});
+
 angular.module('articles').filter('startFrom', function() {
     return function(input, start) {
         start = +start; //parse to int
         return input.slice(start);
     }
 });
+
+// Chosen multi select 
 
 angular.module('articles').filter("myfilt", function() {
   return function (input,search) {
@@ -104,8 +120,6 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
     }
 	}
   ]);
-
-// Chosen
 
 
 

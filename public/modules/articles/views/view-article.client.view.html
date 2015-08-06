@@ -107,8 +107,9 @@
 <!-- Map picture -->
 <div class="mapPic col-md-offset-1 col-md-4">
 	<div id="map-canvas">
-			<map zoom="11" center="[40.7903, -73.9597]">
+			<map zoom="15" center="[{{article.latitude}},{{article.longitude}}]">
 			<div ng-include src="view.getView()"></div> 
+      <marker position="[{{article.latitude}},{{article.longitude}}]" dragglele="true" opacity = "0.8" ></marker>
 		</map>
 		</div>
 </div>
