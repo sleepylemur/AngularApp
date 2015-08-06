@@ -84,8 +84,8 @@ var ArticleSchema = new Schema({
 	lot: {
 		type: String
 	},
-	sale_terms: {
-		price: Number,
+	sales_terms: {
+		sales: Number,
 	},
 	details: {
     	listing_id: Number,

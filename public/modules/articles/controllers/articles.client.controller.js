@@ -1,12 +1,12 @@
 'use strict';
-
+// Sale price filter
 angular.module('articles').filter('filterRange', function() {
    return function(input,min,max) {
      if (input.$resolved) {
        if (typeof min === "undefined") min = 0;
        if (typeof max === "undefined") max = Infinity;
        return input.filter(function(e) {
-         return e.sale_terms.price >= Number(min) && e.sale_terms.price <= Number(max);
+         return e.sales_terms.sales >= Number(min) && e.sales_terms.sales <= Number(max);
        });
      } else {
        return input;
@@ -14,6 +14,36 @@ angular.module('articles').filter('filterRange', function() {
    }
 });
 
+// bed filter
+angular.module('articles').filter("filterBed", function() {
+ return function (input,min) {
+   if (input.$resolved || typeof input.$resolved === 'undefined') {
+     if (typeof min === "undefined") min = 0;
+     return input.filter(function(e) {
+       return e.details.num_bedrooms >= Number(min);
+     });
+   } else {
+     return input;
+   }
+  }
+});
+
+// bath filter
+angular.module('articles').filter("filterBath", function() {
+ return function (input,min) {
+   if (input.$resolved || typeof input.$resolved === 'undefined') {
+     if (typeof min === "undefined") min = 0;
+     return input.filter(function(e) {
+       return e.details.num_baths >= Number(min);
+     });
+   } else {
+     return input;
+   }
+  }
+});
+
+
+// pagination start from
 angular.module('articles').filter('startFrom', function() {
     return function(input, start) {
         start = +start; //parse to int

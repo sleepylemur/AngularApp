@@ -346,7 +346,7 @@
 				</div>
 				<div class="col-md-offset-1 col-md-3 col-xs-6">
 					<div class="styled-select" >
-						<select name="bedNum" type="number">
+						<select ng-model="minbed" name="bedNum" type="number">
 							<option value="0">0</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
@@ -363,7 +363,7 @@
 				</div>
 				<div class="col-md-3 col-xs-6">
 					<div class="styled-select" >
-						<select class="styled-select" name="bathNum" type="number">
+						<select ng-model="minbath" class="styled-select" name="bathNum" type="number">
 							<option value="0">0</option>
 							<option value="1.0">1</option>
 							<option value="1.5">1.5</option>
@@ -399,7 +399,7 @@
 
 <!-- Start of results -->
 <div class="container col-md-9">
-	<div data-ng-repeat="article in articles | filterRange:maxprice:minprice | myfilt:search | startFrom:currentPage*pageSize | limitTo:pageSize" >
+	<div data-ng-repeat="article in articles | filterRange:maxprice:minprice | filterBed:minbed | filterBath:minbath | myfilt:search | startFrom:currentPage*pageSize | limitTo:pageSize" >
 		
 		<!-- Traditional start -->
 		<!-- <div class=" list-group"  > -->
@@ -414,7 +414,7 @@
 							<label data-ng-bind="article.address" id="address" > </label>
 							<span>| APT</span>
 							<label data-ng-bind="article.apt_number" id="address" ></label><br>
-							<span data-ng-bind="article.sale_terms.price | currency" id="price"></span>
+							<span data-ng-bind="article.sales_terms.sales | currency" id="price"></span>
 							<hr >
 						</div>
 					</div>
