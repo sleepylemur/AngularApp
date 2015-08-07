@@ -6,7 +6,7 @@ angular.module('articles').filter('filterRange', function() {
        if (typeof min === "undefined") min = 0;
        if (typeof max === "undefined") max = Infinity;
        return input.filter(function(e) {
-         return e.sale_terms.price >= Number(min) && e.sale_terms.price <= Number(max);
+         return e.sales_terms.sales >= Number(min) && e.sales_terms.sales <= Number(max);
        });
      } else {
        return input;

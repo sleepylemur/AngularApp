@@ -378,7 +378,7 @@
       </div>
       <div class="row">
         <div id="checkbox" class="col-md-offset-6 col-md-3 col-xs-6">
-          <input name="moreBed" type="checkbox">Or more</input>
+          <input ng-model="maxbed" name="moreBed" type="checkbox">Or more</input>
         </div>
         <div id="checkbox" class="col-md-3 col-xs-6">
           <input name="moreBath" type="checkbox">Or more</input>
@@ -399,7 +399,7 @@
 
 <!-- Start of results -->
 <div class="container col-md-9">
-  <div ng-mouseover="moveMapMarker(article)" ng-repeat="article in articles | filterRange:maxprice:minprice | filterBed:minbed | filterBath:minbath | myfilt:search | startFrom:currentPage*pageSize | limitTo:pageSize" >
+  <div ng-mouseover="moveMapMarker(article)" ng-repeat="article in articles | filterRange:maxprice:minprice | filterBed:minbed:maxbed | filterBath:minbath | myfilt:search | startFrom:currentPage*pageSize | limitTo:pageSize" >
     
     <!-- Traditional start -->
     <!-- <div class=" list-group"  > -->
