@@ -6,7 +6,7 @@ angular.module('articles').filter('filterRange', function() {
        if (typeof min === "undefined") min = 0;
        if (typeof max === "undefined") max = Infinity;
        return input.filter(function(e) {
-         return e.sales_terms.sales >= Number(min) && e.sales_terms.sales <= Number(max);
+         return e.sale_terms.price >= Number(min) && e.sale_terms.price <= Number(max);
        });
      } else {
        return input;
@@ -30,15 +30,16 @@ angular.module('articles').filter("filterBed", function() {
 
 // bath filter
 angular.module('articles').filter("filterBath", function() {
- return function (input,min) {
-   if (input.$resolved || typeof input.$resolved === 'undefined') {
-     if (typeof min === "undefined") min = 0;
-     return input.filter(function(e) {
-       return e.details.num_baths >= Number(min);
-     });
-   } else {
+  return function (input,min) {
+    if (input.$resolved || typeof input.$resolved === 'undefined') {
+      if (typeof min === "undefined") min = 0;
+      return input.filter(function(e) {
+        // return any articles with num_baths undefined or >= min
+        return e.details.num_baths >= Number(min) || typeof e.details.num_baths === 'undefined';
+      });
+    } else {
      return input;
-   }
+    }
   }
 });
 
@@ -79,26 +80,40 @@ angular.module('articles').filter("myfilt", function() {
 })
 
 angular.module('articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Articles',
-	function($scope, $stateParams, $location, Authentication, Articles) {
-		$scope.authentication = Authentication;
+  function($scope, $stateParams, $location, Authentication, Articles) {
+    $scope.authentication = Authentication;
     $scope.currentPage = 0;
     $scope.pageSize = 10;
     $scope.data = [];
 
-		$scope.create = function() {
-			var article = new Articles({
-				title: this.title,
-				content: this.content
-			});
-			article.$save(function(response) {
-				$location.path('articles/' + response._id);
+    $scope.moveMapMarker = function(article) {
+      var latlng = new google.maps.LatLng(article.latitude, article.longitude);
+      $scope.map.panTo(latlng);
+      if ($scope.mapMarker) {
+        $scope.mapMarker.setPosition(latlng);
+      } else {
+        $scope.mapMarker = new google.maps.Marker({
+          position: latlng,
+          map: $scope.map
+        });
+      }
+      // console.log(article.latitude,article.longitude,$scope.map);
+    };
 
-				$scope.title = '';
-				$scope.content = '';
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
+    $scope.create = function() {
+      var article = new Articles({
+        title: this.title,
+        content: this.content
+      });
+      article.$save(function(response) {
+        $location.path('articles/' + response._id);
+
+        $scope.title = '';
+        $scope.content = '';
+      }, function(errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
 
     // pagination 
     $scope.numberOfPages=function(){
@@ -108,47 +123,47 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
         $scope.data.push("Item "+i);
     }
 
-		$scope.remove = function(article) {
-			if (article) {
-				article.$remove();
+    $scope.remove = function(article) {
+      if (article) {
+        article.$remove();
 
-				for (var i in $scope.articles) {
-					if ($scope.articles[i] === article) {
-						$scope.articles.splice(i, 1);
-					}
-				}
-			} else {
-				$scope.article.$remove(function() {
-					$location.path('articles');
-				});
-			}
-		};
+        for (var i in $scope.articles) {
+          if ($scope.articles[i] === article) {
+            $scope.articles.splice(i, 1);
+          }
+        }
+      } else {
+        $scope.article.$remove(function() {
+          $location.path('articles');
+        });
+      }
+    };
 
-		$scope.update = function() {
-			var article = $scope.article;
+    $scope.update = function() {
+      var article = $scope.article;
 
-			article.$update(function() {
-				$location.path('articles/' + article._id);
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
+      article.$update(function() {
+        $location.path('articles/' + article._id);
+      }, function(errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
 
-		$scope.find = function() {
-			$scope.articles = Articles.query();
-		};
+    $scope.find = function() {
+      $scope.articles = Articles.query();
+    };
 
-		$scope.findOne = function() {
-			$scope.article = Articles.get({
-				articleId: $stateParams.articleId
-			});
-		};
+    $scope.findOne = function() {
+      $scope.article = Articles.get({
+        articleId: $stateParams.articleId
+      });
+    };
 
     $scope.getView = function() {
         var article = $scope.article;
         return "/views/Neighborhoods" + article.name + ".html";
     }
-	}
+  }
   ]);
 
 
