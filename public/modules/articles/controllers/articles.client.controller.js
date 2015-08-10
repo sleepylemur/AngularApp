@@ -16,30 +16,33 @@ angular.module('articles').filter('filterRange', function() {
 
 // bed filter
 angular.module('articles').filter("filterBed", function() {
- return function (input,min,max) {
-   if (input.$resolved || typeof input.$resolved === 'undefined') {
-     if (typeof min === "undefined") min = 0;
-     return input.filter(function(e) {
-      if (max == "on") {
-        return e.details.num_bedrooms >= Number(min);
-      } else {
-       return e.details.num_bedrooms == Number(min);
-      }
-      });
-   } else {
-     return input;
-   }
+return function (input,min,max) {
+  if (input.$resolved || typeof input.$resolved === 'undefined') {
+    if (typeof min === "undefined") min = 0;
+    return input.filter(function(e) {
+     if (max) {
+       return e.details.num_bedrooms >= Number(min);
+     } else {
+      return e.details.num_bedrooms == Number(min);
+     }
+     });
+  } else {
+    return input;
   }
+ }
 });
 
 // bath filter
 angular.module('articles').filter("filterBath", function() {
-  return function (input,min) {
+  return function (input,min,max) {
     if (input.$resolved || typeof input.$resolved === 'undefined') {
       if (typeof min === "undefined") min = 0;
       return input.filter(function(e) {
+        if (max) {
+          return e.details.num_baths >= Number(min);
+        }
         // return any articles with num_baths undefined or >= min
-        return e.details.num_baths >= Number(min) || typeof e.details.num_baths === 'undefined';
+        return e.details.num_baths == Number(min) || typeof e.details.num_baths === 'undefined';
       });
     } else {
      return input;

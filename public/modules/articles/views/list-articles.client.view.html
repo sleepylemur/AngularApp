@@ -382,7 +382,7 @@
           <input ng-model="maxbed" name="moreBed" type="checkbox">Or more</input>
         </div>
         <div id="checkbox" class="col-md-3 col-xs-6">
-          <input name="moreBath" type="checkbox">Or more</input>
+          <input ng-model="maxbath" name="moreBath" type="checkbox">Or more</input>
         </div>
       </div>
       <div class="row">
@@ -400,7 +400,7 @@
 
 <!-- Start of results -->
 <div class="container col-md-9">
-  <div ng-mouseover="moveMapMarker(article)" ng-repeat="article in articles | filterRange:maxprice:minprice | filterBed:minbed:maxbed | filterBath:minbath | myfilt:search | startFrom:currentPage*pageSize | limitTo:pageSize" >
+  <div ng-mouseover="moveMapMarker(article)" ng-repeat="article in articles | filterRange:maxprice:minprice | filterBed:minbed:maxbed | filterBath:minbath:maxbath | myfilt:search | startFrom:currentPage*pageSize | limitTo:pageSize" >
     
     <!-- Traditional start -->
     <!-- <div class=" list-group"  > -->
@@ -551,7 +551,7 @@ left: 73%;">
           [40.70398000000001, -74.01768],
           [40.7035395, -74.0177153],
           [40.7029037, -74.0173751]]" 
-          stroke-color="#FF0000" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF0000" fill-opacity="0.35" ></shape><marker position="[{{coords.latitude}},{{coords.longitude}}]" dragglele="true" opacity = "0.4" ></marker>
+          stroke-color="#66a3e0" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF0000" fill-opacity="0.35" ></shape><shape id="Chelsea" name="polyline" path= "[[40.757075,-74.00494],[40.753987,-74.007128],[40.750151,-74.008545],[40.7484759,-74.0077079],[40.742494,-74.008833],[40.742087,-74.0082],[40.737405,-73.996893],[40.7388316,-73.9957989],[40.7404776,-73.994619],[40.749858,-73.98783800000001],[40.757075,-74.00494] ] " stroke-color="##66a3e0" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF0000" fill-opacity="0.35" ></shape><marker position="[{{coords.latitude}},{{coords.longitude}}]" dragglele="true" opacity = "0.4" ></marker>
 
         </map>
       </div>
