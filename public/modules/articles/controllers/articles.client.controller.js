@@ -16,12 +16,16 @@ angular.module('articles').filter('filterRange', function() {
 
 // bed filter
 angular.module('articles').filter("filterBed", function() {
- return function (input,min) {
+ return function (input,min,max) {
    if (input.$resolved || typeof input.$resolved === 'undefined') {
      if (typeof min === "undefined") min = 0;
      return input.filter(function(e) {
-       return e.details.num_bedrooms >= Number(min);
-     });
+      if (max == "on") {
+        return e.details.num_bedrooms >= Number(min);
+      } else {
+       return e.details.num_bedrooms == Number(min);
+      }
+      });
    } else {
      return input;
    }
