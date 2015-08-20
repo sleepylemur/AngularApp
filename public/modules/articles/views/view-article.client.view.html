@@ -1,3 +1,15 @@
+  <style type="text/css">
+  hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-color: #E5E5E5;
+    background-color: #E5E5E5;
+    color: #E5E5E5;
+  }
+  .seperator{
+    color: #c4c0c0;
+  }
+  </style>
   <section data-ng-controller="ArticlesController" data-ng-init="findOne()">
 	<div class="page-header">
 		<h1 data-ng-bind="article.title"></h1>
@@ -16,21 +28,20 @@
 		<img width="500" height="300" ng-src="{{article.apartment_features.photos.media[0].media_url}}">
 	</div>
 	<!-- Listing Address -->
-	<div class="col-md-6 listingAddress text-center">
-		<h3 data-ng-bind="article.neighborhood + ' ' + article.ownership"  id="neighborhood"></h3>
-		<p>At</p>
-		<h3 data-ng-bind="article.address" id="address"></h3>
-	<!-- Bed, bath, sqfootage -->
-	<br />
-		<ul style="list-style-type:none;">
-			<li>Bed: <span data-ng-bind="article.details.num_bedrooms"></span> </li>
-			<hr style="height:1px;border:none;color:#333;background-color:#333;">
-			<li>Bath: <span data-ng-bind="article.details.num_baths"></span> </li>
-			<hr style="height:1px;border:none;color:#333;background-color:#333;">
-			<li>Sq Ft: <span data-ng-bind="article.details.approx_square_footage"></span> </li>
-			<hr style="height:1px;border:none;color:#333;background-color:#333;">
-		</ul>
-	</div>
+  <div class="col-md-6 listingAddress text-center">
+    <h3 style="font-weight: 200;" data-ng-bind="article.address + ' #' + article.apt_number" id="address"></h3>
+    <h3 data-ng-bind="article.sales_terms.sales | currency"></h3>
+  <!-- Bed, bath, sqfootage -->
+  <br />
+      <hr style="height:1px;border:none;">
+    <ul style="display: inline-flex; list-style-type:none;">
+      <li><span data-ng-bind="article.details.num_bedrooms"></span> Bed <span class="seperator"> | </span> </li>
+      <li><span data-ng-bind="article.details.num_baths"></span> Bath <span class="seperator"> | </span> </li>
+      <li><span data-ng-bind="article.details.approx_square_footage"></span>Sq Ft  </li>
+    </ul>
+      <hr style="height:1px;border:none;">
+      <span data-ng-bind="article.ownership + ' In ' + article.neighborhood"  id="neighborhood"></h3>
+  </div>
 
 <!-- Contact agent buton modal -->
 	<div ng-controller="ModalDemoCtrl">

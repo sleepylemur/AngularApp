@@ -261,6 +261,7 @@
 
             <!-- <label>$</label> -->
             <select ng-model="maxprice"  class="styled-select" id="mdPrice1" name="price1">
+            <option value="" disabled selected>Any Price</option>
               <option value="100000">$100,000</option>
               <option value="150000">$150,000</option>
               <option value="200000">$200,000</option>
@@ -306,6 +307,7 @@
           <!-- <label>$</label> -->
           <div class="styled-select" >
             <select ng-model="minprice" id="mdPrice2" name="price2">
+              <option value="" disabled selected>Any Price</option>
               <option value="100000">$100,000</option>
               <option value="150000">$150,000</option>
               <option value="200000">$200,000</option>
@@ -348,6 +350,7 @@
         <div class="col-md-offset-1 col-md-3 col-xs-6">
           <div class="styled-select" >
             <select ng-model="minbed" name="bedNum" type="number">
+            <option value="" disabled selected>Any Bed</option>
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -365,6 +368,7 @@
         <div class="col-md-3 col-xs-6">
           <div class="styled-select" >
             <select ng-model="minbath" class="styled-select" name="bathNum" type="number">
+            <option value="" disabled selected>Any Bath</option>
               <option value="0">0</option>
               <option value="1.0">1</option>
               <option value="1.5">1.5</option>
