@@ -59,7 +59,7 @@ angular.module('articles').filter('startFrom', function() {
     }
 });
 
-// Chosen multi select 
+// Chosen multi select
 
 angular.module('articles').filter("myfilt", function() {
   return function (input,search) {
@@ -69,7 +69,7 @@ angular.module('articles').filter("myfilt", function() {
         if (search.neighborhood.indexOf(e.neighborhood)>=0 ) {
           temp.push(e);
         }
-      })      
+      })
     } else {
       temp = input;
     }
@@ -80,18 +80,51 @@ angular.module('articles').filter("myfilt", function() {
         if (search.ownership.indexOf(e.ownership)>=0 ) {
           out.push(e);
         }
-      });      
+      });
     }
   return out;
   };
 })
 
-angular.module('articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Articles',
-  function($scope, $stateParams, $location, Authentication, Articles) {
+angular.module('articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Articles','NeighborhoodService',
+  function($scope, $stateParams, $location, Authentication, Articles, NeighborhoodService) {
+
     $scope.authentication = Authentication;
     $scope.currentPage = 0;
     $scope.pageSize = 10;
     $scope.data = [];
+
+    // take an array of neighborhood names and update our map to display the relevant shapes
+    $scope.updateMapShapes = function() {
+      NeighborhoodService.get().then(function(neighborhoods) {
+        // create any of the input neighborhoods that aren't currently on our map
+        $scope.search.neighborhood.forEach(function(hood) {
+          if (!$scope.map.shapes[hood]) {
+            // create the new shape and store it in our map object
+            var newshape = new google.maps.Polyline({
+              path: neighborhoods[hood],
+              strokeColor: '#66A3E0',
+              fillColor: '#FF0000',
+              strokeOpacity: 0.8,
+              fillOpacity: 0.35,
+              strokeWeight: 2
+            });
+            $scope.map.shapes[hood] = newshape;
+            // actually add our stored shape to the map
+            $scope.map.shapes[hood].setMap($scope.map.data.map);
+          }
+        });
+
+        // remove any shapes that are no longer active
+        Object.keys($scope.map.shapes).forEach(function(hood) {
+          if ($scope.search.neighborhood.indexOf(hood) === -1) {
+            // this hood is no longer active so set its map to null and delete it from our shapes object
+            $scope.map.shapes[hood].setMap(null);
+            delete $scope.map.shapes[hood];
+          }
+        });
+      });
+    };
 
     $scope.moveMapMarker = function(article) {
       var latlng = new google.maps.LatLng(article.latitude, article.longitude);
@@ -122,9 +155,9 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
       });
     };
 
-    // pagination 
+    // pagination
     $scope.numberOfPages=function(){
-        return Math.ceil($scope.data.length/$scope.pageSize);                
+        return Math.ceil($scope.data.length/$scope.pageSize);
     }
     for (var i=0; i<45; i++) {
         $scope.data.push("Item "+i);
@@ -268,4 +301,3 @@ angular.module('articles').controller('AccordionDemoCtrl', function ($scope) {
     isFirstDisabled: false
   };
 });
-
