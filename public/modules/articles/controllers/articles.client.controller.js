@@ -1,4 +1,5 @@
 'use strict';
+
 // Sale price filter
 angular.module('articles').filter('filterRange', function() {
    return function(input,min,max) {
@@ -140,6 +141,42 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
       // console.log(article.latitude,article.longitude,$scope.map);
     };
 
+    // Set of Photos
+    // $http.get(article).success(function(data){
+      // $scope.photos = data;
+    // })
+    $scope.photos = [
+        {src: 'http://nyapartmentblog.com/wp-content/uploads/2011/07/Continental-Living.jpg', desc: 'Image 01'},
+        {src: 'http://farm9.staticflickr.com/8449/7918424278_4835c85e7a_b.jpg', desc: 'Image 02'},
+        {src: 'http://farm9.staticflickr.com/8457/7918424412_bb641455c7_b.jpg', desc: 'Image 03'},
+        {src: 'http://farm9.staticflickr.com/8179/7918424842_c79f7e345c_b.jpg', desc: 'Image 04'},
+        {src: 'http://farm9.staticflickr.com/8315/7918425138_b739f0df53_b.jpg', desc: 'Image 05'},
+        {src: 'http://farm9.staticflickr.com/8461/7918425364_fe6753aa75_b.jpg', desc: 'Image 06'}
+    ];
+
+    // initial image index
+    $scope._Index = 0;
+
+    // if a current image is the same as requested image
+    $scope.isActive = function (index) {
+        return $scope._Index === index;
+    };
+
+    // show prev image
+    $scope.showPrev = function () {
+        $scope._Index = ($scope._Index > 0) ? --$scope._Index : $scope.photos.length - 1;
+    };
+
+    // show next image
+    $scope.showNext = function () {
+        $scope._Index = ($scope._Index < $scope.photos.length - 1) ? ++$scope._Index : 0;
+    };
+
+    // show a certain image
+    $scope.showPhoto = function (index) {
+        $scope._Index = index;
+    };
+
     $scope.create = function() {
       var article = new Articles({
         title: this.title,
@@ -206,7 +243,20 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
   }
   ]);
 
-
+angular.module('articles').filter('noFractionCurrency',
+  [ '$filter', '$locale',
+  function(filter, locale) {
+    var currencyFilter = filter('currency');
+    var formats = locale.NUMBER_FORMATS;
+    return function(amount, currencySymbol) {
+      var value = currencyFilter(amount, currencySymbol);
+      var sep = value.indexOf(formats.DECIMAL_SEP);
+      if(amount >= 0) { 
+        return value.substring(0, sep);
+      }
+      return value.substring(0, sep) + ')';
+    };
+  } ]);
 
 // Modals
 angular.module('articles').controller('ModalDemoCtrl', function ($scope, $modal, $log) {

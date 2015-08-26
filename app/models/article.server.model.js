@@ -120,7 +120,9 @@ var ArticleSchema = new Schema({
     	photos: {
     		media:[
     			{
-    				media_url: String
+    				media_url1: String,
+    				media_url2: String,
+    				media_url3: String
     			},
     		],
     	},

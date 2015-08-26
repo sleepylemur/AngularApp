@@ -9,11 +9,135 @@
   .seperator{
     color: #c4c0c0;
   }
+  .arrow {
+    cursor: pointer;
+    display: block;
+    height: 64px;
+    margin-top: -35px;
+    outline: medium none;
+    position: absolute;
+    top: 50%;
+    width: 64px;
+    z-index: 5;
+}
+.arrow.prev {
+    background-image: url("http://cdn.flaticon.com/png/64/60/60573.png");
+    left: 20px;
+    opacity: 0.2;
+    transition: all 0.2s linear 0s;
+}
+.arrow.next {
+    background-image: url("http://cdn.flaticon.com/png/64/60/60758.png");
+    opacity: 0.2;
+    right: 150px;
+    transition: all 0.2s linear 0s;
+}
+.arrow.prev:hover{
+    opacity:1;
+}
+.arrow.next:hover{
+    opacity:1;
+}
+
+.pics {
+    bottom: -4px;
+    display: block;
+    /*height: 48px;*/
+    left: 0;
+    /*margin: 0 auto;*/
+    padding: 1em 0 0.8em;
+    position: absolute;
+    right: 0;
+    /*text-align: center;*/
+    width: 100%;
+    z-index: 5;
+}
+.pics li {
+    border: 5px solid #AAAAAA;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    height: 30px;
+    margin: 0 8px;
+    position: relative;
+    width: 50px;
+}
+.pics li.active {
+    border: 5px solid #FFFFFF;
+}
+.pics li img {
+    width: 100%;
+}
+
+.slider {
+    border: 15px solid #FFFFFF;
+    border-radius: 5px;
+    height: 500px;
+    position: relative;
+    width: 800px;
+
+    -webkit-perspective: 1000px;
+    -moz-perspective: 1000px;
+    -ms-perspective: 1000px;
+    -o-perspective: 1000px;
+    perspective: 1000px;
+
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.slide.ng-hide-add {
+    opacity:1;
+
+    -webkit-transition:1s linear all;
+    -moz-transition:1s linear all;
+    -o-transition:1s linear all;
+    transition:1s linear all;
+
+    -webkit-transform: rotateX(50deg) rotateY(30deg);
+    -moz-transform: rotateX(50deg) rotateY(30deg);
+    -ms-transform: rotateX(50deg) rotateY(30deg);
+    -o-transform: rotateX(50deg) rotateY(30deg);
+    transform: rotateX(50deg) rotateY(30deg);
+
+    -webkit-transform-origin: right top 0;
+    -moz-transform-origin: right top 0;
+    -ms-transform-origin: right top 0;
+    -o-transform-origin: right top 0;
+    transform-origin: right top 0;
+}
+.slide.ng-hide-add.ng-hide-add-active {
+    opacity:0;
+}
+.slide.ng-hide-remove {
+    -webkit-transition:1s linear all;
+    -moz-transition:1s linear all;
+    -o-transition:1s linear all;
+    transition:1s linear all;
+
+    display:block!important;
+    opacity:0;
+}
+.slide, .slide.ng-hide-remove.ng-hide-remove-active {
+    opacity:1;
+}
   </style>
+  <script>
+   $(window).load(function(){
+
+        $(document).ready(function(){
+         $(window).scrollTop(0);
+    });
+});</script>
   <section data-ng-controller="ArticlesController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="article.title"></h1>
-	</div>
+	<br />
 	<div class="pull-right" data-ng-show="authentication.user._id == article.user._id">
 		<a class="btn btn-primary" href="/#!/articles/{{article._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
@@ -24,20 +148,37 @@
 	</div>
 	<!-- Main picture -->
 <div class="container">
-	<div class= "col-md-6 mainPic">
-		<img width="500" height="300" ng-src="{{article.apartment_features.photos.media[0].media_url}}">
+	<div class= "col-md-7 mainPic">
+		<!-- slider container -->
+    <div class="container slider">
+
+        <!-- enumerate all photos -->
+        <img style="display: block; margin: auto;" height="400" ng-repeat="photo in photos" class="slide" ng-swipe-right="showPrev()" ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="{{photo.src}}" />
+
+        <!-- prev / next controls -->
+        <a class="arrow prev" href="#" ng-click="showPrev()"></a>
+        <a class="arrow next" href="#" ng-click="showNext()"></a>
+
+        <!-- extra navigation controls -->
+        <ul class="pics">
+            <li ng-repeat="photo in photos" ng-class="{'active':isActive($index)}">
+                <img ng-src="{{photo.src}}" alt="{{photo.desc}}" title="{{photo.desc}}" ng-click="showPhoto($index);" />
+            </li>
+        </ul>
+
+    </div>
 	</div>
 	<!-- Listing Address -->
-  <div class="col-md-6 listingAddress text-center">
+  <div class="col-md-3 listingAddress">
     <h3 style="font-weight: 200;" data-ng-bind="article.address + ' #' + article.apt_number" id="address"></h3>
-    <h3 data-ng-bind="article.sales_terms.sales | currency"></h3>
+    <h3 data-ng-bind="article.sales_terms.sales | noFractionCurrency"></h3>
   <!-- Bed, bath, sqfootage -->
   <br />
       <hr style="height:1px;border:none;">
     <ul style="display: inline-flex; list-style-type:none;">
-      <li><span data-ng-bind="article.details.num_bedrooms"></span> Bed <span class="seperator"> | </span> </li>
+      <li style="margin-left: -40px;"><span data-ng-bind="article.details.approx_square_footage"></span> Bed <span class="seperator"> | </span> </li>
       <li><span data-ng-bind="article.details.num_baths"></span> Bath <span class="seperator"> | </span> </li>
-      <li><span data-ng-bind="article.details.approx_square_footage"></span>Sq Ft  </li>
+      <li><span data-ng-bind="article.details.num_bedrooms"></span> ft²  </li>
     </ul>
       <hr style="height:1px;border:none;">
       <span data-ng-bind="article.ownership + ' In ' + article.neighborhood"  id="neighborhood"></h3>
@@ -60,13 +201,21 @@
         </div>
     </script>
 	<!-- Contact button -->
-	<div class="col-md-offset-6 col-md-6 text-center form-group contactButton">
-		<button ng-click="open('lg')" class="btn btn-primary">Contact Agent</button>
+	<div class="col-md-offset-6 col-md-5 text-center form-group contactButton">
+		<button style="margin-top: -400px; margin-right: 100px;" ng-click="open('lg')" class="btn btn-primary btn-lg">Contact Agent</button>
+    </div>
 	</div>
-<script type="text/javascript">"public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js"</script>
+  <div class="row">
+    <div class="col-md-11">
+    <hr style=" height: 1px;
+    margin: 13px;
+    border: 2;
+    color: #1a1f2c;
+    background-color: #1a1f2c;">
+    </div>
   </div>
 <!-- Accordian  -->
-<div class="col-md-6" ng-controller="AccordionDemoCtrl">
+<div class="col-md-7" ng-controller="AccordionDemoCtrl">
   <!-- <p>
     <button class="btn btn-default btn-sm" ng-click="status.open = !status.open">Toggle last panel</button>
     <button class="btn btn-default btn-sm" ng-click="status.isFirstDisabled = ! status.isFirstDisabled">Enable / Disable first panel</button>
@@ -116,7 +265,7 @@
 </div>
 
 <!-- Map picture -->
-<div class="mapPic col-md-offset-1 col-md-4">
+<div class="mapPic col-md-4">
 	<div id="map-canvas">
 			<map zoom="15" center="[{{article.latitude}},{{article.longitude}}]">
 			<div ng-include src="view.getView()"></div> 

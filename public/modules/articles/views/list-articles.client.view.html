@@ -404,32 +404,32 @@
 
 <!-- Start of results -->
 <div class="container col-md-9">
-  <div ng-mouseover="moveMapMarker(article)" ng-repeat="article in articles | filterRange:maxprice:minprice | filterBed:minbed:maxbed | filterBath:minbath:maxbath | myfilt:search | startFrom:currentPage*pageSize | limitTo:pageSize" >
+  <div ng-mouseover="moveMapMarker(article)" ng-repeat="article in articles" ng-show="([article] | filterRange:maxprice:minprice | filterBed:minbed:maxbed | filterBath:minbath:maxbath | myfilt:search | startFrom:currentPage*pageSize | limitTo:pageSize).length > 0 " >
 
     <!-- Traditional start -->
     <!-- <div class=" list-group"  > -->
     <a id="listing" ng-href="#!/articles/{{article._id}}" class="list-group-item">
       <div class="row">
         <div class="col-md-3">
-          <img ng-src="{{article.apartment_features.photos.media[0].media_url}}" style="height:100px;max-width:140px;" >
+          <img ng-src="{{article.apartment_features.photos.media_url1}}" style="height:100px;max-width:140px;" >
         </div>
         <div class="col-md-9">
           <div class="row">
             <div class="col-md-6">
               <label ng-bind="article.address" id="address" > </label>
-              <span>| APT</span>
+              <span> #</span>
               <label ng-bind="article.apt_number" id="address" ></label><br>
-              <span ng-bind="article.sales_terms.sales | currency" id="price"></span>
+              <span ng-bind="article.sales_terms.sales | noFractionCurrency" id="price"></span>
               <hr >
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-6">
-            <span>Bed: </span>
             <span ng-bind="article.details.num_bedrooms" id="bedNumber"></span>
-            <span>| Bath: </span>
+            <span>Bed |</span>
             <span ng-bind="article.details.num_baths" id="bathNumber"></span>
+            <span> Bath </span>
             <span>| </span>
             <span ng-bind="article.details.approx_square_footage" id="sqfoot"></span>
             <span>ft²</span>
