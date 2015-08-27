@@ -145,14 +145,14 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
     // $http.get(article).success(function(data){
       // $scope.photos = data;
     // })
-    $scope.photos = [
-        {src: 'http://nyapartmentblog.com/wp-content/uploads/2011/07/Continental-Living.jpg', desc: 'Image 01'},
-        {src: 'http://farm9.staticflickr.com/8449/7918424278_4835c85e7a_b.jpg', desc: 'Image 02'},
-        {src: 'http://farm9.staticflickr.com/8457/7918424412_bb641455c7_b.jpg', desc: 'Image 03'},
-        {src: 'http://farm9.staticflickr.com/8179/7918424842_c79f7e345c_b.jpg', desc: 'Image 04'},
-        {src: 'http://farm9.staticflickr.com/8315/7918425138_b739f0df53_b.jpg', desc: 'Image 05'},
-        {src: 'http://farm9.staticflickr.com/8461/7918425364_fe6753aa75_b.jpg', desc: 'Image 06'}
-    ];
+    // $scope.photos = [
+    //     {src: 'http://nyapartmentblog.com/wp-content/uploads/2011/07/Continental-Living.jpg', desc: 'Image 01'},
+    //     {src: 'http://farm9.staticflickr.com/8449/7918424278_4835c85e7a_b.jpg', desc: 'Image 02'},
+    //     {src: 'http://farm9.staticflickr.com/8457/7918424412_bb641455c7_b.jpg', desc: 'Image 03'},
+    //     {src: 'http://farm9.staticflickr.com/8179/7918424842_c79f7e345c_b.jpg', desc: 'Image 04'},
+    //     {src: 'http://farm9.staticflickr.com/8315/7918425138_b739f0df53_b.jpg', desc: 'Image 05'},
+    //     {src: 'http://farm9.staticflickr.com/8461/7918425364_fe6753aa75_b.jpg', desc: 'Image 06'}
+    // ];
 
     // initial image index
     $scope._Index = 0;
@@ -231,8 +231,14 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
     };
 
     $scope.findOne = function() {
-      $scope.article = Articles.get({
+      Articles.get({
         articleId: $stateParams.articleId
+      }, function(data) {
+        $scope.article = data;
+        // convert photos url hash to easily loopable array
+        $scope.photos = Object.keys(data.apartment_features.photos).map(function(key) {
+          return data.apartment_features.photos[key];
+        });
       });
     };
 
@@ -251,7 +257,7 @@ angular.module('articles').filter('noFractionCurrency',
     return function(amount, currencySymbol) {
       var value = currencyFilter(amount, currencySymbol);
       var sep = value.indexOf(formats.DECIMAL_SEP);
-      if(amount >= 0) { 
+      if(amount >= 0) {
         return value.substring(0, sep);
       }
       return value.substring(0, sep) + ')';

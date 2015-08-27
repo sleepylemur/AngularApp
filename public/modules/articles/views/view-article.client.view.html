@@ -153,16 +153,16 @@
     <div class="container slider">
 
         <!-- enumerate all photos -->
-        <img style="display: block; margin: auto;" height="400" ng-repeat="photo in photos" class="slide" ng-swipe-right="showPrev()" ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="{{photo.src}}" />
+        <img style="display: block; margin: auto;" height="400" ng-repeat="photo in photos" class="slide" ng-swipe-right="showPrev()" ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="{{photo}}" />
 
         <!-- prev / next controls -->
-        <a class="arrow prev" href="#" ng-click="showPrev()"></a>
-        <a class="arrow next" href="#" ng-click="showNext()"></a>
+        <a class="arrow prev" ng-click="showPrev()"></a>
+        <a class="arrow next" ng-click="showNext()"></a>
 
         <!-- extra navigation controls -->
         <ul class="pics">
             <li ng-repeat="photo in photos" ng-class="{'active':isActive($index)}">
-                <img ng-src="{{photo.src}}" alt="{{photo.desc}}" title="{{photo.desc}}" ng-click="showPhoto($index);" />
+                <img ng-src="{{photo}}" ng-click="showPhoto($index);" />
             </li>
         </ul>
 
@@ -230,11 +230,11 @@
     <accordion-heading>
 	Description <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isFirstOpen, 'glyphicon-chevron-right': !status.isFirstDisabled}"></i>
     </accordion-heading>
-      <span data-ng-bind="article.details.property_description"></span> 
+      <span data-ng-bind="article.details.property_description"></span>
 
       This listing courtesy of <span data-ng-bind="article.apartment_features.agent.company_name"></span>
     </accordion-group>
-    <accordion-group is-open="status.isSecondOpen" is-disabled="status.isSecondDisabled"> 
+    <accordion-group is-open="status.isSecondOpen" is-disabled="status.isSecondDisabled">
     	<accordion-heading>
     	Amenities <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isSecondOpen, 'glyphicon-chevron-right': !status.isSecondDisabled}"></i>
     	</accordion-heading>
@@ -268,7 +268,7 @@
 <div class="mapPic col-md-4">
 	<div id="map-canvas">
 			<map zoom="15" center="[{{article.latitude}},{{article.longitude}}]">
-			<div ng-include src="view.getView()"></div> 
+			<div ng-include src="view.getView()"></div>
       <marker position="[{{article.latitude}},{{article.longitude}}]" dragglele="true" opacity = "0.8" ></marker>
 		</map>
 		</div>

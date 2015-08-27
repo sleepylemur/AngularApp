@@ -118,13 +118,9 @@ var ArticleSchema = new Schema({
     		company_name: String
     	},
     	photos: {
-    		media:[
-    			{
-    				media_url1: String,
-    				media_url2: String,
-    				media_url3: String
-    			},
-    		],
+				media_url1: String,
+				media_url2: String,
+				media_url3: String
     	},
   },
 	user: {
